@@ -1,0 +1,42 @@
+.wrap {
+	background-color: var(--bg-secondary);
+	display: flex;
+	flex-direction: column;
+	row-gap: 30px;
+	padding: 20px;
+	max-width: 500px;
+	width: 100%;
+	.header {
+	}
+	.rows {
+		display: flex;
+		flex-direction: column;
+		row-gap: 10px;
+	}
+
+	.footer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		row-gap: 10px;
+		.submit {
+			width: 80%;
+		}
+		.footerText {
+			span {
+				display: flex;
+				align-items: center;
+				column-gap: 5px;
+				font-size: 14px;
+
+				a {
+					color: var(--accent-blue);
+
+					&:hover {
+						color: var(--accent-blue-hover);
+					}
+				}
+			}
+		}
+	}
+}

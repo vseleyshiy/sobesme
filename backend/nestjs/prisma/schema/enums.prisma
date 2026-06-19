@@ -1,0 +1,33 @@
+enum UserRole {
+  REGULAR
+  ADMIN
+}
+
+enum Grade {
+  Trainee
+  Junior
+  Middle
+  Senior
+
+  @@map("enum_grade")
+}
+
+enum AuthMethod {
+  CREDENTIALS
+  YANDEX
+}
+
+enum TokenType {
+  VERIFICATION
+  PASSWORD_RESET
+}
+
+enum StatusType {
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum RoleType {
+  USER
+  AI
+}

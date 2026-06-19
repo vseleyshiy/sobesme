@@ -1,0 +1,20 @@
+model User {
+  id                String @id @default(uuid())
+  email             String @unique
+  password          String
+  interviewsBalance Int    @default(1) @map("interviews_balance")
+
+  role    UserRole @default(REGULAR)
+  picture String?
+
+  interviews Interview[]
+
+  isVerified Boolean @default(false) @map("is_verified")
+
+  method   AuthMethod
+  accounts Account[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("users")
+}

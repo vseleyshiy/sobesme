@@ -1,0 +1,41 @@
+.row {
+	display: flex;
+	flex-direction: column;
+	row-gap: 2px;
+
+	.title {
+		color: var(--text-muted);
+		font-size: 14px;
+		margin-left: 2px;
+	}
+
+	.input {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		color: var(--text-main);
+		border-radius: 8px;
+		padding: 5px 10px;
+		border: 1px solid var(--border-color);
+
+		input {
+			&::placeholder {
+			}
+			padding: 0;
+			width: 100%;
+			background-color: transparent;
+			border: none;
+			outline: none;
+		}
+
+		.eye {
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--text-muted);
+			height: 17px;
+			width: 17px;
+		}
+	}
+}
