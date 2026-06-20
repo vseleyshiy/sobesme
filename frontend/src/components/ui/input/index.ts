@@ -1,3 +1,4 @@
 import { Input } from './Input'
+import { PasswordInput } from './PasswordInput'
 
-export { Input }
+export { Input, PasswordInput }

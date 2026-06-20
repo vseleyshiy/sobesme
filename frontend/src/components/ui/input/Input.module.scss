@@ -3,10 +3,22 @@
 	flex-direction: column;
 	row-gap: 2px;
 
-	.title {
-		color: var(--text-muted);
+	&Head {
 		font-size: 14px;
-		margin-left: 2px;
+
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.title {
+			color: var(--text-muted);
+			margin-left: 2px;
+		}
+
+		.error {
+			font-size: 11px;
+			color: var(--text-danger);
+		}
 	}
 
 	.input {
@@ -19,8 +31,6 @@
 		border: 1px solid var(--border-color);
 
 		input {
-			&::placeholder {
-			}
 			padding: 0;
 			width: 100%;
 			background-color: transparent;

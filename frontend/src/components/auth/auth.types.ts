@@ -1,5 +1,8 @@
-export interface IAuthField {
+import type { Path } from 'react-hook-form'
+
+export interface IAuthField<T> {
+	name: Path<T>
 	title: string
 	placeholder: string
-	isPassword?: 'first' | 'second'
+	isPassword?: boolean
 }

@@ -1,15 +1,15 @@
 import type {
 	CSSProperties,
-	Dispatch,
 	InputHTMLAttributes,
-	SetStateAction,
+	PropsWithChildren,
 } from 'react'
+import type { Path, UseFormRegister } from 'react-hook-form'
 
-export interface IInputProps {
-	title?: string
+export interface IInputProps<T> extends PropsWithChildren {
+	title: string
+	name?: Path<T>
+	register?: UseFormRegister<T>
+	error?: string
 	args?: InputHTMLAttributes<HTMLInputElement>
 	style?: CSSProperties
-	isPassword?: 'first' | 'second'
-	isHidePassword?: boolean
-	setIsHidePassword?: Dispatch<SetStateAction<boolean>>
 }

@@ -1,29 +1,29 @@
-import { Eye, EyeOff } from 'lucide-react'
-
 import styles from './Input.module.scss'
 import type { IInputProps } from './input.types'
 
-export function Input(props: IInputProps) {
-	const { title, args, style, isPassword, isHidePassword, setIsHidePassword } =
-		props
+export function Input<T>(props: IInputProps<T>) {
+	const { children, title, name, error, args, style, register } = props
 
 	return (
 		<div className={styles.row}>
-			<span className={styles.title}>{title}</span>
-			<div className={styles.input}>
+			<div className={styles.rowHead}>
+				<span className={styles.title}>{title}</span>
+				{error && <span className={styles.error}>{error}</span>}
+			</div>
+			<div
+				className={styles.input}
+				style={
+					error && {
+						border: '1px solid var(--text-danger)',
+					}
+				}
+			>
 				<input
-					type={isPassword ? (isHidePassword ? 'password' : 'text') : args.type}
-					style={style}
 					{...args}
+					{...(register && name ? register(name) : {})}
+					style={style}
 				/>
-				{isPassword && (
-					<div
-						className={styles.eye}
-						onClick={() => setIsHidePassword(prev => !prev)}
-					>
-						{isHidePassword ? <EyeOff /> : <Eye />}
-					</div>
-				)}
+				{children}
 			</div>
 		</div>
 	)

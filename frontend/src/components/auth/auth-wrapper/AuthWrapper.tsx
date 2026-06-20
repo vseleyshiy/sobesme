@@ -1,56 +1,34 @@
-import { useState } from 'react'
-import { Link } from 'react-router'
+import { useForm, type SubmitHandler } from 'react-hook-form'
 
-import { PAGES_CONFIG } from '../../../configs/pages-url.config'
-import { Button } from '../../ui/button'
-import { Input } from '../../ui/input'
 import styles from './AuthWrapper.module.scss'
+import { AuthFields } from './auth-fields/AuthFields'
+import { AuthFooter } from './auth-footer/AuthFooter'
+import { AuthSocial } from './auth-social/AuthSocial'
 import type { IAuthWrapperProps } from './auth-wrapper.types'
 
-export function AuthWrapper(props: IAuthWrapperProps) {
-	const { header, fields } = props
+export function AuthWrapper<T>(props: IAuthWrapperProps<T>) {
+	const { header, fields, resolver } = props
 
-	const [isHideFirst, setIsHideFirst] = useState(true)
-	const [isHideSecond, setIsHideSecond] = useState(true)
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<T>({
+		resolver,
+	})
+
+	const onSubmit: SubmitHandler<T> = data => {
+		console.log(data)
+	}
 
 	return (
 		<div className={styles.wrap}>
 			<h2 className={styles.header}>{header}</h2>
-			<div className={styles.rows}>
-				{fields.map(field => (
-					<Input
-						title={field.title}
-						args={{
-							placeholder: field.placeholder,
-						}}
-						isHidePassword={
-							field.isPassword == 'first' ? isHideFirst : isHideSecond
-						}
-						setIsHidePassword={
-							field.isPassword === 'first' ? setIsHideFirst : setIsHideSecond
-						}
-						isPassword={field.isPassword}
-					/>
-				))}
-			</div>
-			<div className={styles.footer}>
-				<Button
-					classNames={[styles.submit]}
-					text={header === 'Вход' ? 'войти' : 'зарегистрироваться'}
-				/>
-				<div className={styles.footerText}>
-					{header === 'Вход' ? (
-						<span>
-							ещё не зарегистрировался?
-							<Link to={PAGES_CONFIG.REGISTER}>зарегистрироваться</Link>
-						</span>
-					) : (
-						<span>
-							уже есть аккаунт? <Link to={PAGES_CONFIG.LOGIN}>войти</Link>
-						</span>
-					)}
-				</div>
-			</div>
+			<AuthSocial />
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<AuthFields fields={fields} register={register} errors={errors} />
+				<AuthFooter header={header} />
+			</form>
 		</div>
 	)
 }
