@@ -1,10 +1,10 @@
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { Grade } from 'prisma/__generated__/enums';
+import { GradeEnum } from 'prisma/__generated__/enums';
 
-export class StartInterview {
-  @IsEnum(Grade)
+export class StartInterviewDto {
+  @IsEnum(GradeEnum)
   @IsNotEmpty()
-  grade: Grade;
+  grade: GradeEnum;
 
   @IsString()
   @IsNotEmpty()

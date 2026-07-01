@@ -6,3 +6,5 @@ export interface IAuthField<T> {
 	placeholder: string
 	isPassword?: boolean
 }
+
+export type TypeOAuth = 'yandex'

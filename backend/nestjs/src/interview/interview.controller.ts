@@ -6,9 +6,10 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
 } from '@nestjs/common';
-import { StartInterview } from './dto/start-interview.dto';
+import { StartInterviewDto } from './dto/start-interview.dto';
 import { InterviewService } from './interview.service';
 
 @Controller('interviews')
@@ -17,19 +18,26 @@ export class InterviewController {
 
   @HttpCode(HttpStatus.OK)
   @Authorization()
-  @Post('start')
-  public async start(
-    @Authorized('id') userId: string,
-    @Authorized('interviewsBalance') interviewBalance: number,
-    @Body() dto: StartInterview,
-  ) {
-    return await this.interviewService.start(userId, interviewBalance, dto);
+  @Get()
+  public async findAll(@Authorized('id') userId: string) {
+    return await this.interviewService.findAllByUserId(userId);
   }
 
   @HttpCode(HttpStatus.OK)
   @Authorization()
-  @Get('history')
-  public async history(@Authorized('id') userId: string) {
-    return await this.interviewService.history(userId);
+  @Get(':interviewId')
+  public async findById(@Param('interviewId') interviewId: string) {
+    return await this.interviewService.findById(interviewId);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Authorization()
+  @Post('start')
+  public async start(
+    @Authorized('id') userId: string,
+    @Authorized('interviewsBalance') interviewBalance: number,
+    @Body() dto: StartInterviewDto,
+  ) {
+    return await this.interviewService.start(userId, interviewBalance, dto);
   }
 }

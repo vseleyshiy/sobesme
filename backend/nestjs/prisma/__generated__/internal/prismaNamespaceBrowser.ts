@@ -96,7 +96,8 @@ export const InterviewScalarFieldEnum = {
   status: 'status',
   score: 'score',
   feedback: 'feedback',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type InterviewScalarFieldEnum = (typeof InterviewScalarFieldEnum)[keyof typeof InterviewScalarFieldEnum]
@@ -107,7 +108,6 @@ export const MessageScalarFieldEnum = {
   interviewId: 'interviewId',
   role: 'role',
   content: 'content',
-  mentorComment: 'mentorComment',
   createdAt: 'createdAt'
 } as const
 
@@ -135,7 +135,8 @@ export const UserScalarFieldEnum = {
   picture: 'picture',
   isVerified: 'isVerified',
   method: 'method',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]

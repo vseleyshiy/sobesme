@@ -9,51 +9,51 @@
 * 🟢 You can import this file directly.
 */
 
-export const UserRole = {
+export const UserRoleEnum = {
   REGULAR: 'REGULAR',
   ADMIN: 'ADMIN'
 } as const
 
-export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+export type UserRoleEnum = (typeof UserRoleEnum)[keyof typeof UserRoleEnum]
 
 
-export const Grade = {
-  Trainee: 'Trainee',
-  Junior: 'Junior',
-  Middle: 'Middle',
-  Senior: 'Senior'
+export const GradeEnum = {
+  TRAINEE: 'TRAINEE',
+  JUNIOR: 'JUNIOR',
+  MIDDLE: 'MIDDLE',
+  SENIOR: 'SENIOR'
 } as const
 
-export type Grade = (typeof Grade)[keyof typeof Grade]
+export type GradeEnum = (typeof GradeEnum)[keyof typeof GradeEnum]
 
 
-export const AuthMethod = {
+export const AuthMethodEnum = {
   CREDENTIALS: 'CREDENTIALS',
   YANDEX: 'YANDEX'
 } as const
 
-export type AuthMethod = (typeof AuthMethod)[keyof typeof AuthMethod]
+export type AuthMethodEnum = (typeof AuthMethodEnum)[keyof typeof AuthMethodEnum]
 
 
-export const TokenType = {
+export const TokenEnum = {
   VERIFICATION: 'VERIFICATION',
   PASSWORD_RESET: 'PASSWORD_RESET'
 } as const
 
-export type TokenType = (typeof TokenType)[keyof typeof TokenType]
+export type TokenEnum = (typeof TokenEnum)[keyof typeof TokenEnum]
 
 
-export const StatusType = {
+export const StatusEnum = {
   IN_PROGRESS: 'IN_PROGRESS',
   COMPLETED: 'COMPLETED'
 } as const
 
-export type StatusType = (typeof StatusType)[keyof typeof StatusType]
+export type StatusEnum = (typeof StatusEnum)[keyof typeof StatusEnum]
 
 
-export const RoleType = {
+export const MessageRoleEnum = {
   USER: 'USER',
   AI: 'AI'
 } as const
 
-export type RoleType = (typeof RoleType)[keyof typeof RoleType]
+export type MessageRoleEnum = (typeof MessageRoleEnum)[keyof typeof MessageRoleEnum]

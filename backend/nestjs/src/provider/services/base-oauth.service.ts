@@ -55,14 +55,14 @@ export class BaseOAuthService {
 
     if (!tokenRequest.ok)
       throw new BadRequestException(
-        `Не найден пользователь с ${this.options.profile_url}. Пожалуйста, проверьте валидность токена`,
+        `Не найден пользователь с ${this.options.profile_url}. Пожалуйста, проверьте валидность токена.`,
       );
 
     const tokenResponse = (await tokenRequest.json()) as Record<string, any>;
 
     if (!tokenResponse.access_token)
       throw new BadRequestException(
-        `Не удалось получить токены из ${this.options.access_url}`,
+        `Не удалось получить токены из ${this.options.access_url}.`,
       );
 
     const userRequest = await fetch(this.options.profile_url, {
@@ -73,7 +73,7 @@ export class BaseOAuthService {
 
     if (!userRequest.ok)
       throw new UnauthorizedException(
-        `Не удалось получить пользователя с ${this.options.profile_url}`,
+        `Не удалось получить пользователя с ${this.options.profile_url}.`,
       );
 
     const user = (await userRequest.json()) as Record<string, any>;
@@ -90,7 +90,7 @@ export class BaseOAuthService {
   }
 
   public getRedirectUrl() {
-    return `${this.BASE_URL}/auth/oauth/callback/${this.options.name}`;
+    return `${this.BASE_URL}/api/auth/oauth/callback/${this.options.name}`;
   }
 
   set baseUrl(value: string) {

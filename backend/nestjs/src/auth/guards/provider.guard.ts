@@ -19,7 +19,7 @@ export class AuthProviderGuard implements CanActivate {
     const providerInstance = this.provderService.findByService(provider);
 
     if (!providerInstance) {
-      throw new NotFoundException(`Provider ${provider} is not found`);
+      throw new NotFoundException(`Провайдер ${provider} не найден.`);
     }
 
     return true;

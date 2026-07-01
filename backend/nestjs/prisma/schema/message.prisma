@@ -4,9 +4,8 @@ model Message {
   interviewId String    @map("interview_id")
   interview   Interview @relation(fields: [interviewId], references: [id])
 
-  role          RoleType
-  content       String
-  mentorComment String   @map("mentor_comment")
+  role    MessageRoleEnum
+  content String
 
   createdAt DateTime @default(now()) @map("created_at")
 

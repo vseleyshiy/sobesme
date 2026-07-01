@@ -30,8 +30,8 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(HttpStatus.OK)
-  public async register(@Req() req: Request, @Body() dto: RegisterDto) {
-    return this.authService.register(req, dto);
+  public async register(@Body() dto: RegisterDto) {
+    return this.authService.register(dto);
   }
 
   @Post('login')
@@ -49,12 +49,12 @@ export class AuthController {
     @Query('code') code: string,
     @Param('provider') provider: string,
   ) {
-    if (!code) throw new BadRequestException('There is no code');
+    if (!code) throw new BadRequestException('В запросе отсутствует код.');
 
     await this.authService.extractProfileFromCode(req, provider, code);
 
     return res.redirect(
-      `${this.configService.getOrThrow<string>('ALLOWED_ORIGIN')}/dashboard/settings`,
+      `${this.configService.getOrThrow<string>('ALLOWED_ORIGIN')}`,
     );
   }
 

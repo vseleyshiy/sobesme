@@ -1,0 +1,78 @@
+.select {
+	position: relative;
+	color: var(--text-main);
+	display: inline-flex;
+	flex-direction: column;
+	row-gap: 5px;
+
+	.header {
+		display: flex;
+		flex-direction: column;
+		row-gap: 5px;
+		padding: 5px 10px;
+
+		background-color: var(--bg-secondary);
+		border-radius: 10px;
+		border: 1px solid var(--border-color);
+
+		&.hasError {
+			border: 1px solid var(--text-danger);
+		}
+
+		.error {
+			font-size: 14px;
+			color: var(--text-danger);
+		}
+
+		.title {
+			display: flex;
+			align-items: center;
+			column-gap: 5px;
+			font-size: 16px;
+			cursor: pointer;
+			user-select: none;
+
+			.icon {
+				transition: rotate 0.3s ease-in-out;
+
+				&.active {
+					rotate: -180deg;
+				}
+			}
+		}
+	}
+
+	.options {
+		width: 100%;
+		position: absolute;
+		top: calc(100% + 5px);
+		left: 0;
+		display: flex;
+		flex-direction: column;
+		row-gap: 5px;
+		background-color: var(--bg-main);
+		border: 1px solid var(--border-color);
+		border-radius: 10px;
+
+		z-index: 9999;
+		padding: 5px;
+
+		.option {
+			cursor: pointer;
+			padding: 5px 8px;
+			border: 1px solid var(--bg-main);
+			background-color: var(--bg-main);
+			border-radius: 10px;
+			transition: all 0.1s ease-in-out;
+
+			&.selected {
+				color: var(--text-muted);
+				background-color: var(--accent-blue-light);
+			}
+
+			&:hover {
+				background-color: var(--accent-blue-light);
+			}
+		}
+	}
+}

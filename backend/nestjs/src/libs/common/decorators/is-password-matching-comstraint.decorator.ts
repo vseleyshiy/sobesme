@@ -13,6 +13,6 @@ export class IsPasswordMatchingConstraint implements ValidatorConstraintInterfac
   }
 
   public defaultMessage(): string {
-    return 'Passwords are not matching';
+    return 'Пароли не совпадают';
   }
 }

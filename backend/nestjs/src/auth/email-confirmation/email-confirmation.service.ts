@@ -8,8 +8,9 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import type { Request } from 'express';
-import { TokenType } from 'prisma/__generated__/enums';
+import { TokenEnum } from 'prisma/__generated__/enums';
 import { v4 as uuidv4 } from 'uuid';
 import type { AuthService as IAuthService } from '../auth.service';
 import { AuthService } from '../auth.service';
@@ -26,22 +27,22 @@ export class EmailConfirmationService {
   ) {}
 
   public async newVerification(req: Request, dto: ConfirmationDto) {
-    const existingToken = await this.prismaService.token.findUnique({
+    const existingToken = await this.prismaService.token.findFirst({
       where: {
         token: dto.token,
-        type: TokenType.VERIFICATION,
+        type: TokenEnum.VERIFICATION,
       },
     });
 
     if (!existingToken) {
-      throw new NotFoundException('Токен не найден');
+      throw new NotFoundException('Токен не найден.');
     }
 
     const isExpired = new Date(existingToken.expiresIn) < new Date();
 
     if (isExpired)
       throw new BadRequestException(
-        'Токен для подтверждения истёк. Пожалуйста, запросите новый токен для подтверждения',
+        'Токен для подтверждения истёк. Пожалуйста, запросите новый токен для подтверждения.',
       );
 
     const existingUser = await this.userService.findByEmail(
@@ -62,14 +63,29 @@ export class EmailConfirmationService {
       },
     });
 
-    await this.prismaService.token.delete({
-      where: {
-        id: existingToken.id,
-        type: TokenType.VERIFICATION,
-      },
-    });
+    try {
+      await this.prismaService.token.delete({
+        where: {
+          id: existingToken.id,
+          type: TokenEnum.VERIFICATION,
+        },
+      });
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          console.log(`Токен ${existingToken.id} уже был удален.`);
+        } else {
+          throw error;
+        }
+      } else {
+        throw error;
+      }
+    }
 
-    return this.authService.saveSession(req, existingUser);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...cleanUser } = existingUser;
+
+    return this.authService.saveSession(req, cleanUser);
   }
 
   public async sendVerificationToken(email: string) {
@@ -90,7 +106,7 @@ export class EmailConfirmationService {
     const existingToken = await this.prismaService.token.findFirst({
       where: {
         email,
-        type: TokenType.VERIFICATION,
+        type: TokenEnum.VERIFICATION,
       },
     });
 
@@ -98,7 +114,7 @@ export class EmailConfirmationService {
       await this.prismaService.token.delete({
         where: {
           id: existingToken.id,
-          type: TokenType.VERIFICATION,
+          type: TokenEnum.VERIFICATION,
         },
       });
     }
@@ -108,7 +124,7 @@ export class EmailConfirmationService {
         email,
         token,
         expiresIn,
-        type: TokenType.VERIFICATION,
+        type: TokenEnum.VERIFICATION,
       },
     });
 

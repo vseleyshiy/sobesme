@@ -24,7 +24,9 @@ export class RolesGuard implements CanActivate {
     if (!roles) return true;
 
     if (!request.user || !roles.includes(request.user.role)) {
-      throw new ForbiddenException('No permission');
+      throw new ForbiddenException(
+        'Ваших прав недостаточно, чтобы выполнить это действие. Обратитесь к администратору за помощью.',
+      );
     }
 
     return true;

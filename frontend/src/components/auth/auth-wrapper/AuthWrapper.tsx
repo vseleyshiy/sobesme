@@ -6,8 +6,8 @@ import { AuthFooter } from './auth-footer/AuthFooter'
 import { AuthSocial } from './auth-social/AuthSocial'
 import type { IAuthWrapperProps } from './auth-wrapper.types'
 
-export function AuthWrapper<T>(props: IAuthWrapperProps<T>) {
-	const { header, fields, resolver } = props
+export function AuthWrapper<T, R>(props: IAuthWrapperProps<T, R>) {
+	const { header, fields, resolver, mutate, isPending, isLogin } = props
 
 	const {
 		register,
@@ -18,16 +18,21 @@ export function AuthWrapper<T>(props: IAuthWrapperProps<T>) {
 	})
 
 	const onSubmit: SubmitHandler<T> = data => {
-		console.log(data)
+		mutate(data)
 	}
 
 	return (
 		<div className={styles.wrap}>
-			<h2 className={styles.header}>{header}</h2>
+			<h2>{header}</h2>
 			<AuthSocial />
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<AuthFields fields={fields} register={register} errors={errors} />
-				<AuthFooter header={header} />
+				<AuthFields
+					isLogin={isLogin}
+					fields={fields}
+					register={register}
+					errors={errors}
+				/>
+				<AuthFooter header={header} isPending={isPending} />
 			</form>
 		</div>
 	)

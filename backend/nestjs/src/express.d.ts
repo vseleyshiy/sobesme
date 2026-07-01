@@ -1,6 +1,6 @@
 import 'express';
 import 'express-session';
-import type { User } from 'prisma/__generated__/browser';
+import type { TypeCleanUser } from './libs/common/types/user.types';
 
 declare module 'express-session' {
   interface SessionData {
@@ -11,7 +11,7 @@ declare module 'express-session' {
 declare global {
   namespace Express {
     interface Request {
-      user?: User;
+      user?: TypeCleanUser;
     }
   }
 }

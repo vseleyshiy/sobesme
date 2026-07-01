@@ -1,33 +1,33 @@
-enum UserRole {
+enum UserRoleEnum {
   REGULAR
   ADMIN
 }
 
-enum Grade {
-  Trainee
-  Junior
-  Middle
-  Senior
+enum GradeEnum {
+  TRAINEE
+  JUNIOR
+  MIDDLE
+  SENIOR
 
   @@map("enum_grade")
 }
 
-enum AuthMethod {
+enum AuthMethodEnum {
   CREDENTIALS
   YANDEX
 }
 
-enum TokenType {
+enum TokenEnum {
   VERIFICATION
   PASSWORD_RESET
 }
 
-enum StatusType {
+enum StatusEnum {
   IN_PROGRESS
   COMPLETED
 }
 
-enum RoleType {
+enum MessageRoleEnum {
   USER
   AI
 }

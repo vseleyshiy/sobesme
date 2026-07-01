@@ -1,9 +1,12 @@
+import { TypeCleanUser } from '@/libs/common/types/user.types';
 import { PrismaService } from '@/prisma/prisma.service';
 import { ProviderService } from '@/provider/provider.service';
 import { UserService } from '@/user/user.service';
 import {
   ConflictException,
   forwardRef,
+  HttpException,
+  HttpStatus,
   Inject,
   Injectable,
   InternalServerErrorException,
@@ -13,7 +16,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { verify } from 'argon2';
 import type { Request, Response } from 'express';
-import { AuthMethod, type User } from 'prisma/__generated__/browser';
+import { AuthMethodEnum } from 'prisma/__generated__/enums';
 import type { LoginDto } from './dto/login.dto';
 import type { RegisterDto } from './dto/register.dto';
 import type { EmailConfirmationService as IEmailConfirmationService } from './email-confirmation/email-confirmation.service';
@@ -30,18 +33,21 @@ export class AuthService {
     private readonly emailConfigrmationServise: IEmailConfirmationService,
   ) {}
 
-  public async register(req: Request, dto: RegisterDto) {
+  public async register(dto: RegisterDto) {
     const { email, password } = dto;
 
     const isExists = await this.userService.findByEmail(email);
 
-    if (isExists) throw new ConflictException('User is already exist');
+    if (isExists)
+      throw new ConflictException(
+        'Пользователь с такой почтой уже существует.',
+      );
 
     const newUser = await this.userService.create({
       email,
       password,
       picture: '',
-      method: AuthMethod.CREDENTIALS,
+      method: AuthMethodEnum.CREDENTIALS,
       isVerified: false,
     });
 
@@ -54,19 +60,28 @@ export class AuthService {
   }
 
   public async login(req: Request, dto: LoginDto) {
-    const { email, password } = dto;
+    const { email, password: fieldPassword } = dto;
 
     const user = await this.userService.findByEmail(email);
 
     if (!user || !user.password)
-      throw new NotFoundException('User is not found');
-
-    const isValidPassword = await verify(user.password, password);
-
-    if (!isValidPassword)
-      throw new UnauthorizedException('Пароли не совпадают');
+      throw new NotFoundException(
+        'Либо пользователь с таким email не найден, либо он регистрировался с помощью социальной сети.',
+      );
 
     if (!user.isVerified) {
+      const token = await this.prismaService.token.findFirst({
+        where: {
+          email: user.email,
+        },
+      });
+
+      if (token && token.expiresIn > new Date())
+        throw new HttpException(
+          'Вам на почту уже было отправлено письмо для подтверждения. Оно действительно в течение 1 часа.',
+          HttpStatus.TOO_MANY_REQUESTS,
+        );
+
       await this.emailConfigrmationServise.sendVerificationToken(user.email);
 
       throw new UnauthorizedException(
@@ -74,7 +89,14 @@ export class AuthService {
       );
     }
 
-    return this.saveSession(req, user);
+    const isValidPassword = await verify(user.password, fieldPassword);
+
+    if (!isValidPassword) throw new UnauthorizedException('Неверный пароль.');
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...cleanUser } = user;
+
+    return this.saveSession(req, cleanUser);
   }
 
   public async extractProfileFromCode(
@@ -85,7 +107,7 @@ export class AuthService {
     const providerInstance = this.providerService.findByService(provider);
     const profile = await providerInstance?.findUserByCode(code);
 
-    if (!profile) throw new NotFoundException('Profile is not found');
+    if (!profile) throw new NotFoundException('Профиль не найден.');
 
     const account = await this.prismaService.account.findFirst({
       where: {
@@ -106,7 +128,7 @@ export class AuthService {
       email: profile.email,
       password: '',
       picture: profile?.picture,
-      method: AuthMethod[profile.provider.toUpperCase() as AuthMethod],
+      method: AuthMethodEnum[profile.provider.toUpperCase() as AuthMethodEnum],
       isVerified: true,
     });
 
@@ -140,7 +162,7 @@ export class AuthService {
     });
   }
 
-  public async saveSession(req: Request, user: User) {
+  public async saveSession(req: Request, user: TypeCleanUser) {
     return new Promise((resolve, reject) => {
       req.session.userId = user.id;
 

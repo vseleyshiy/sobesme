@@ -839,7 +839,8 @@ export const InterviewScalarFieldEnum = {
   status: 'status',
   score: 'score',
   feedback: 'feedback',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type InterviewScalarFieldEnum = (typeof InterviewScalarFieldEnum)[keyof typeof InterviewScalarFieldEnum]
@@ -850,7 +851,6 @@ export const MessageScalarFieldEnum = {
   interviewId: 'interviewId',
   role: 'role',
   content: 'content',
-  mentorComment: 'mentorComment',
   createdAt: 'createdAt'
 } as const
 
@@ -878,7 +878,8 @@ export const UserScalarFieldEnum = {
   picture: 'picture',
   isVerified: 'isVerified',
   method: 'method',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -957,30 +958,30 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'Grade'
+ * Reference to a field of type 'GradeEnum'
  */
-export type EnumGradeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Grade'>
+export type EnumGradeEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GradeEnum'>
     
 
 
 /**
- * Reference to a field of type 'Grade[]'
+ * Reference to a field of type 'GradeEnum[]'
  */
-export type ListEnumGradeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Grade[]'>
+export type ListEnumGradeEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GradeEnum[]'>
     
 
 
 /**
- * Reference to a field of type 'StatusType'
+ * Reference to a field of type 'StatusEnum'
  */
-export type EnumStatusTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusType'>
+export type EnumStatusEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusEnum'>
     
 
 
 /**
- * Reference to a field of type 'StatusType[]'
+ * Reference to a field of type 'StatusEnum[]'
  */
-export type ListEnumStatusTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusType[]'>
+export type ListEnumStatusEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusEnum[]'>
     
 
 
@@ -999,44 +1000,44 @@ export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMode
 
 
 /**
- * Reference to a field of type 'RoleType'
+ * Reference to a field of type 'MessageRoleEnum'
  */
-export type EnumRoleTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RoleType'>
+export type EnumMessageRoleEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageRoleEnum'>
     
 
 
 /**
- * Reference to a field of type 'RoleType[]'
+ * Reference to a field of type 'MessageRoleEnum[]'
  */
-export type ListEnumRoleTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RoleType[]'>
+export type ListEnumMessageRoleEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageRoleEnum[]'>
     
 
 
 /**
- * Reference to a field of type 'TokenType'
+ * Reference to a field of type 'TokenEnum'
  */
-export type EnumTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TokenType'>
+export type EnumTokenEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TokenEnum'>
     
 
 
 /**
- * Reference to a field of type 'TokenType[]'
+ * Reference to a field of type 'TokenEnum[]'
  */
-export type ListEnumTokenTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TokenType[]'>
+export type ListEnumTokenEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TokenEnum[]'>
     
 
 
 /**
- * Reference to a field of type 'UserRole'
+ * Reference to a field of type 'UserRoleEnum'
  */
-export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
+export type EnumUserRoleEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRoleEnum'>
     
 
 
 /**
- * Reference to a field of type 'UserRole[]'
+ * Reference to a field of type 'UserRoleEnum[]'
  */
-export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
+export type ListEnumUserRoleEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRoleEnum[]'>
     
 
 
@@ -1048,16 +1049,16 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'AuthMethod'
+ * Reference to a field of type 'AuthMethodEnum'
  */
-export type EnumAuthMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuthMethod'>
+export type EnumAuthMethodEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuthMethodEnum'>
     
 
 
 /**
- * Reference to a field of type 'AuthMethod[]'
+ * Reference to a field of type 'AuthMethodEnum[]'
  */
-export type ListEnumAuthMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuthMethod[]'>
+export type ListEnumAuthMethodEnumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AuthMethodEnum[]'>
     
 
 /**

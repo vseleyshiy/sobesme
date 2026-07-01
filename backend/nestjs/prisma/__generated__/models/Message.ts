@@ -27,18 +27,16 @@ export type AggregateMessage = {
 export type MessageMinAggregateOutputType = {
   id: string | null
   interviewId: string | null
-  role: $Enums.RoleType | null
+  role: $Enums.MessageRoleEnum | null
   content: string | null
-  mentorComment: string | null
   createdAt: Date | null
 }
 
 export type MessageMaxAggregateOutputType = {
   id: string | null
   interviewId: string | null
-  role: $Enums.RoleType | null
+  role: $Enums.MessageRoleEnum | null
   content: string | null
-  mentorComment: string | null
   createdAt: Date | null
 }
 
@@ -47,7 +45,6 @@ export type MessageCountAggregateOutputType = {
   interviewId: number
   role: number
   content: number
-  mentorComment: number
   createdAt: number
   _all: number
 }
@@ -58,7 +55,6 @@ export type MessageMinAggregateInputType = {
   interviewId?: true
   role?: true
   content?: true
-  mentorComment?: true
   createdAt?: true
 }
 
@@ -67,7 +63,6 @@ export type MessageMaxAggregateInputType = {
   interviewId?: true
   role?: true
   content?: true
-  mentorComment?: true
   createdAt?: true
 }
 
@@ -76,7 +71,6 @@ export type MessageCountAggregateInputType = {
   interviewId?: true
   role?: true
   content?: true
-  mentorComment?: true
   createdAt?: true
   _all?: true
 }
@@ -156,9 +150,8 @@ export type MessageGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type MessageGroupByOutputType = {
   id: string
   interviewId: string
-  role: $Enums.RoleType
+  role: $Enums.MessageRoleEnum
   content: string
-  mentorComment: string
   createdAt: Date
   _count: MessageCountAggregateOutputType | null
   _min: MessageMinAggregateOutputType | null
@@ -186,9 +179,8 @@ export type MessageWhereInput = {
   NOT?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
   id?: Prisma.StringFilter<"Message"> | string
   interviewId?: Prisma.StringFilter<"Message"> | string
-  role?: Prisma.EnumRoleTypeFilter<"Message"> | $Enums.RoleType
+  role?: Prisma.EnumMessageRoleEnumFilter<"Message"> | $Enums.MessageRoleEnum
   content?: Prisma.StringFilter<"Message"> | string
-  mentorComment?: Prisma.StringFilter<"Message"> | string
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
   interview?: Prisma.XOR<Prisma.InterviewScalarRelationFilter, Prisma.InterviewWhereInput>
 }
@@ -198,7 +190,6 @@ export type MessageOrderByWithRelationInput = {
   interviewId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  mentorComment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   interview?: Prisma.InterviewOrderByWithRelationInput
 }
@@ -209,9 +200,8 @@ export type MessageWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.MessageWhereInput[]
   NOT?: Prisma.MessageWhereInput | Prisma.MessageWhereInput[]
   interviewId?: Prisma.StringFilter<"Message"> | string
-  role?: Prisma.EnumRoleTypeFilter<"Message"> | $Enums.RoleType
+  role?: Prisma.EnumMessageRoleEnumFilter<"Message"> | $Enums.MessageRoleEnum
   content?: Prisma.StringFilter<"Message"> | string
-  mentorComment?: Prisma.StringFilter<"Message"> | string
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
   interview?: Prisma.XOR<Prisma.InterviewScalarRelationFilter, Prisma.InterviewWhereInput>
 }, "id">
@@ -221,7 +211,6 @@ export type MessageOrderByWithAggregationInput = {
   interviewId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  mentorComment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.MessageCountOrderByAggregateInput
   _max?: Prisma.MessageMaxOrderByAggregateInput
@@ -234,17 +223,15 @@ export type MessageScalarWhereWithAggregatesInput = {
   NOT?: Prisma.MessageScalarWhereWithAggregatesInput | Prisma.MessageScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Message"> | string
   interviewId?: Prisma.StringWithAggregatesFilter<"Message"> | string
-  role?: Prisma.EnumRoleTypeWithAggregatesFilter<"Message"> | $Enums.RoleType
+  role?: Prisma.EnumMessageRoleEnumWithAggregatesFilter<"Message"> | $Enums.MessageRoleEnum
   content?: Prisma.StringWithAggregatesFilter<"Message"> | string
-  mentorComment?: Prisma.StringWithAggregatesFilter<"Message"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Message"> | Date | string
 }
 
 export type MessageCreateInput = {
   id?: string
-  role: $Enums.RoleType
+  role: $Enums.MessageRoleEnum
   content: string
-  mentorComment: string
   createdAt?: Date | string
   interview: Prisma.InterviewCreateNestedOneWithoutMessagesInput
 }
@@ -252,17 +239,15 @@ export type MessageCreateInput = {
 export type MessageUncheckedCreateInput = {
   id?: string
   interviewId: string
-  role: $Enums.RoleType
+  role: $Enums.MessageRoleEnum
   content: string
-  mentorComment: string
   createdAt?: Date | string
 }
 
 export type MessageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+  role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  mentorComment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   interview?: Prisma.InterviewUpdateOneRequiredWithoutMessagesNestedInput
 }
@@ -270,35 +255,31 @@ export type MessageUpdateInput = {
 export type MessageUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   interviewId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+  role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  mentorComment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MessageCreateManyInput = {
   id?: string
   interviewId: string
-  role: $Enums.RoleType
+  role: $Enums.MessageRoleEnum
   content: string
-  mentorComment: string
   createdAt?: Date | string
 }
 
 export type MessageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+  role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  mentorComment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MessageUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   interviewId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+  role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  mentorComment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -317,7 +298,6 @@ export type MessageCountOrderByAggregateInput = {
   interviewId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  mentorComment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -326,7 +306,6 @@ export type MessageMaxOrderByAggregateInput = {
   interviewId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  mentorComment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -335,7 +314,6 @@ export type MessageMinOrderByAggregateInput = {
   interviewId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  mentorComment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -381,23 +359,21 @@ export type MessageUncheckedUpdateManyWithoutInterviewNestedInput = {
   deleteMany?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
 }
 
-export type EnumRoleTypeFieldUpdateOperationsInput = {
-  set?: $Enums.RoleType
+export type EnumMessageRoleEnumFieldUpdateOperationsInput = {
+  set?: $Enums.MessageRoleEnum
 }
 
 export type MessageCreateWithoutInterviewInput = {
   id?: string
-  role: $Enums.RoleType
+  role: $Enums.MessageRoleEnum
   content: string
-  mentorComment: string
   createdAt?: Date | string
 }
 
 export type MessageUncheckedCreateWithoutInterviewInput = {
   id?: string
-  role: $Enums.RoleType
+  role: $Enums.MessageRoleEnum
   content: string
-  mentorComment: string
   createdAt?: Date | string
 }
 
@@ -433,41 +409,36 @@ export type MessageScalarWhereInput = {
   NOT?: Prisma.MessageScalarWhereInput | Prisma.MessageScalarWhereInput[]
   id?: Prisma.StringFilter<"Message"> | string
   interviewId?: Prisma.StringFilter<"Message"> | string
-  role?: Prisma.EnumRoleTypeFilter<"Message"> | $Enums.RoleType
+  role?: Prisma.EnumMessageRoleEnumFilter<"Message"> | $Enums.MessageRoleEnum
   content?: Prisma.StringFilter<"Message"> | string
-  mentorComment?: Prisma.StringFilter<"Message"> | string
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
 }
 
 export type MessageCreateManyInterviewInput = {
   id?: string
-  role: $Enums.RoleType
+  role: $Enums.MessageRoleEnum
   content: string
-  mentorComment: string
   createdAt?: Date | string
 }
 
 export type MessageUpdateWithoutInterviewInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+  role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  mentorComment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MessageUncheckedUpdateWithoutInterviewInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+  role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  mentorComment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type MessageUncheckedUpdateManyWithoutInterviewInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumRoleTypeFieldUpdateOperationsInput | $Enums.RoleType
+  role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
-  mentorComment?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -478,7 +449,6 @@ export type MessageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   interviewId?: boolean
   role?: boolean
   content?: boolean
-  mentorComment?: boolean
   createdAt?: boolean
   interview?: boolean | Prisma.InterviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
@@ -488,7 +458,6 @@ export type MessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   interviewId?: boolean
   role?: boolean
   content?: boolean
-  mentorComment?: boolean
   createdAt?: boolean
   interview?: boolean | Prisma.InterviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
@@ -498,7 +467,6 @@ export type MessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   interviewId?: boolean
   role?: boolean
   content?: boolean
-  mentorComment?: boolean
   createdAt?: boolean
   interview?: boolean | Prisma.InterviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
@@ -508,11 +476,10 @@ export type MessageSelectScalar = {
   interviewId?: boolean
   role?: boolean
   content?: boolean
-  mentorComment?: boolean
   createdAt?: boolean
 }
 
-export type MessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "interviewId" | "role" | "content" | "mentorComment" | "createdAt", ExtArgs["result"]["message"]>
+export type MessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "interviewId" | "role" | "content" | "createdAt", ExtArgs["result"]["message"]>
 export type MessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   interview?: boolean | Prisma.InterviewDefaultArgs<ExtArgs>
 }
@@ -531,9 +498,8 @@ export type $MessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     interviewId: string
-    role: $Enums.RoleType
+    role: $Enums.MessageRoleEnum
     content: string
-    mentorComment: string
     createdAt: Date
   }, ExtArgs["result"]["message"]>
   composites: {}
@@ -961,9 +927,8 @@ export interface Prisma__MessageClient<T, Null = never, ExtArgs extends runtime.
 export interface MessageFieldRefs {
   readonly id: Prisma.FieldRef<"Message", 'String'>
   readonly interviewId: Prisma.FieldRef<"Message", 'String'>
-  readonly role: Prisma.FieldRef<"Message", 'RoleType'>
+  readonly role: Prisma.FieldRef<"Message", 'MessageRoleEnum'>
   readonly content: Prisma.FieldRef<"Message", 'String'>
-  readonly mentorComment: Prisma.FieldRef<"Message", 'String'>
   readonly createdAt: Prisma.FieldRef<"Message", 'DateTime'>
 }
     

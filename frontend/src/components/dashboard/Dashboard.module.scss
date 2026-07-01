@@ -1,0 +1,33 @@
+.content {
+	width: 100%;
+	margin-top: 20px;
+	color: var(--text-main);
+	display: flex;
+	align-items: start;
+	gap: 20px;
+
+	.balance {
+		width: 30%;
+		padding: 20px 40px;
+		border-radius: 10px;
+		border: 1px solid var(--border-color);
+		display: inline-block;
+		font-size: 30px;
+		background-color: var(--bg-secondary);
+		.title {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			.text {
+				font-size: 25px;
+			}
+			.count {
+				color: var(--accent-blue-medium-hover);
+				font-size: 170%;
+			}
+		}
+		button {
+			width: 100%;
+		}
+	}
+}

@@ -7,5 +7,6 @@ import { InterviewService } from './interview.service';
   imports: [UserModule],
   controllers: [InterviewController],
   providers: [InterviewService],
+  exports: [InterviewService],
 })
 export class InterviewModule {}

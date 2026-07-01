@@ -18,7 +18,7 @@ export class YandexProvider extends BaseOAuthService {
   }
 
   public extractUserInfo(data: YandexProfile): TypeUserInfo {
-    if (!data.emails) throw new NotFoundException('Почты не найдены');
+    if (!data.emails) throw new NotFoundException('Почты не найдены.');
 
     return super.extractUserInfo({
       email: data.emails[0],

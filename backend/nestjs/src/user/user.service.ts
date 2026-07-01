@@ -13,12 +13,16 @@ export class UserService {
       where: {
         id,
       },
+      omit: {
+        password: true,
+      },
       include: {
         accounts: true,
       },
     });
 
-    if (!user) throw new NotFoundException('User not found');
+    if (!user)
+      throw new NotFoundException('Пользователь с таким id не найден.');
 
     return user;
   }
@@ -44,6 +48,9 @@ export class UserService {
         method,
         isVerified,
       },
+      omit: {
+        password: true,
+      },
       include: {
         accounts: true,
       },
@@ -61,6 +68,9 @@ export class UserService {
       },
       data: {
         email: dto.email,
+      },
+      omit: {
+        password: true,
       },
     });
 

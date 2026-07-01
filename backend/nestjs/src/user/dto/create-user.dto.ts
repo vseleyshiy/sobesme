@@ -6,7 +6,7 @@ import {
   IsStrongPassword,
   Length,
 } from 'class-validator';
-import type { AuthMethod } from 'prisma/__generated__/enums';
+import { AuthMethodEnum } from 'prisma/__generated__/enums';
 
 export class CreateUserDto {
   @IsString()
@@ -26,7 +26,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
-  method: AuthMethod;
+  method: AuthMethodEnum;
 
   @IsBoolean()
   isVerified: boolean;

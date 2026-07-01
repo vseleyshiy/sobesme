@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     const request: Request = context.switchToHttp().getRequest();
 
     if (typeof request.session.userId === 'undefined') {
-      throw new UnauthorizedException('User is not authorized');
+      throw new UnauthorizedException('Пользователь не авторизован.');
     }
 
     const user = await this.userService.findById(request.session.userId);

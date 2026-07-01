@@ -14,7 +14,7 @@ export class RoomService {
     });
 
     if (!interview)
-      throw new Error('Интервью с таким пользователем не найдено');
+      throw new Error('Интервью с таким пользователем не найдено.');
 
     return true;
   }

@@ -4,17 +4,18 @@ model User {
   password          String
   interviewsBalance Int    @default(1) @map("interviews_balance")
 
-  role    UserRole @default(REGULAR)
+  role    UserRoleEnum @default(REGULAR)
   picture String?
 
   interviews Interview[]
 
   isVerified Boolean @default(false) @map("is_verified")
 
-  method   AuthMethod
+  method   AuthMethodEnum
   accounts Account[]
 
   createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("users")
 }

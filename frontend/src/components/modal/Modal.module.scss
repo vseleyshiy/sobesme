@@ -1,0 +1,99 @@
+.modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+
+	.card {
+		padding: 20px;
+		background-color: var(--bg-secondary);
+		max-width: 600px;
+		width: 100%;
+		height: 300px;
+		border-radius: 10px;
+		border: 1px solid var(--border-color);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		row-gap: 10px;
+
+		.info {
+			display: flex;
+			flex-direction: column;
+			row-gap: 20px;
+			.header {
+				display: flex;
+				flex-direction: column;
+				row-gap: 5px;
+				.title {
+					display: flex;
+					align-items: center;
+					column-gap: 10px;
+
+					font-weight: bold;
+					font-size: 20px;
+
+					.subtitle {
+						font-weight: normal;
+						font-size: 18px;
+					}
+				}
+				.description {
+					color: var(--text-muted);
+				}
+			}
+			.details {
+				display: flex;
+				flex-direction: column;
+				.date {
+					display: flex;
+					align-items: center;
+					column-gap: 5px;
+					color: var(--text-muted);
+					span {
+						color: var(--text-main);
+					}
+				}
+			}
+
+			.fields {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: start;
+				row-gap: 5px;
+
+				.input {
+					width: 100%;
+				}
+			}
+		}
+		.buttons {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			column-gap: 20px;
+
+			button {
+				width: 100%;
+			}
+
+			.mainBtn {
+				background-color: var(--accent-red);
+				color: var(--bg-main);
+				font-weight: bold;
+				transition: background-color 0.3s ease-in-out;
+
+				&:hover {
+					background-color: var(--accent-red-hover);
+				}
+			}
+		}
+	}
+}

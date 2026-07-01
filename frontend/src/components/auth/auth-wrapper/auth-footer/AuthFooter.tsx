@@ -6,11 +6,16 @@ import styles from './AuthFooter.module.scss'
 import type { IAuthFooterProps } from './auth-footer.types'
 
 export function AuthFooter(props: IAuthFooterProps) {
-	const { header } = props
+	const { header, isPending } = props
 
 	return (
 		<div className={styles.footer}>
-			<Button classNames={[styles.submit]}>
+			<Button
+				classNames={[styles.submit]}
+				args={{
+					disabled: isPending,
+				}}
+			>
 				{header === 'Вход' ? 'войти' : 'зарегистрироваться'}
 			</Button>
 			<div className={styles.footerText}>
