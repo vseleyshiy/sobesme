@@ -1,21 +1,24 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useState, type ReactNode } from 'react'
 
 import cn from 'clsx'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Info } from 'lucide-react'
 
 import type { ISelectProps } from '@/components/ui/select/select.type'
+import { Tooltip } from '@/components/ui/tooltip'
 import { useOutside } from '@/hooks/useOutside'
 
 import styles from './Select.module.scss'
 
-export function Select(props: ISelectProps) {
-	const { title, options, pickFn, error } = props
+export function Select<T extends ReactNode & React.Key = string>(
+	props: ISelectProps<T>,
+) {
+	const { title, options, pickFn, error, style } = props
 
 	const { ref, isShow, setIsShow } = useOutside<HTMLUListElement>(false)
-	const [value, setValue] = useState(title)
+	const [value, setValue] = useState<T | string>(title)
 
 	const onPick = useCallback(
-		(value: string) => {
+		(value: T) => {
 			setIsShow(false)
 			pickFn(value)
 			setValue(value)
@@ -24,7 +27,7 @@ export function Select(props: ISelectProps) {
 	)
 
 	return (
-		<div className={styles.select}>
+		<div className={styles.select} style={style}>
 			<div
 				className={cn(styles.header, {
 					[styles.hasError]: !!error,
@@ -44,13 +47,18 @@ export function Select(props: ISelectProps) {
 				<ul className={styles.options} ref={ref}>
 					{options.map(option => (
 						<li
-							key={option}
+							key={option.text}
 							className={cn(styles.option, {
-								[styles.selected]: value === option,
+								[styles.selected]: value === option.text,
 							})}
-							onClick={() => onPick(option)}
+							onClick={() => onPick(option.text)}
 						>
-							{option}
+							{option.text}
+							{option.info && (
+								<Tooltip text={option.info} placement='right'>
+									<Info size={15} />
+								</Tooltip>
+							)}
 						</li>
 					))}
 				</ul>

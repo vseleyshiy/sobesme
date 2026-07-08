@@ -1,9 +1,9 @@
-import { useCallback } from 'react'
-import { Controller, useForm, type SubmitHandler } from 'react-hook-form'
+import { useForm, type SubmitHandler } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { DASHBOARD_MODAL_GRADES } from '@/components/dashboard/dashboard-modal/dashboard-modal.data'
+import { DashboardModalButtons } from '@/components/dashboard/dashboard-modal/dashboard-modal-buttons/DashboardModalButtons'
+import { DashboardModalFields } from '@/components/dashboard/dashboard-modal/dashboard-modal-fields/DashboardModalFields'
 import type { IDashboardModalProps } from '@/components/dashboard/dashboard-modal/dashboard-modal.type'
 import {
 	interviewStartSchema,
@@ -12,9 +12,6 @@ import {
 import { useStartInterview } from '@/components/dashboard/hooks/useStartInterview'
 import { Modal } from '@/components/modal/Modal'
 import styles from '@/components/modal/Modal.module.scss'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Select } from '@/components/ui/select'
 
 export function DashboardModal(props: IDashboardModalProps) {
 	const { isShow, setIsShow, ref } = props
@@ -36,8 +33,6 @@ export function DashboardModal(props: IDashboardModalProps) {
 		mutate(data)
 	}
 
-	const handleClose = useCallback(() => setIsShow(false), [setIsShow])
-
 	return (
 		<Modal ref={ref} isShow={isShow} onSubmit={handleSubmit(onSubmit)}>
 			<div className={styles.info}>
@@ -47,49 +42,13 @@ export function DashboardModal(props: IDashboardModalProps) {
 						Выберите тему и уровень, на который планируете собеседоваться
 					</div>
 				</div>
-				<div className={styles.fields}>
-					<Controller
-						name='grade'
-						control={control}
-						render={({ field: { onChange }, fieldState: { error } }) => (
-							<Select
-								title='выбери сложность'
-								options={DASHBOARD_MODAL_GRADES}
-								pickFn={onChange}
-								error={error?.message}
-							/>
-						)}
-					/>
-					<Input
-						title='тема'
-						name='topic'
-						args={{
-							placeholder: 'frontend разработка на React...',
-						}}
-						register={register}
-						error={errors.topic?.message}
-						classNames={[styles.input]}
-					/>
-				</div>
+				<DashboardModalFields
+					register={register}
+					control={control}
+					errors={errors}
+				/>
 			</div>
-			<div className={styles.buttons}>
-				<Button
-					args={{
-						onClick: handleClose,
-						disabled: isPending,
-					}}
-				>
-					закрыть
-				</Button>
-				<Button
-					classNames={[styles.mainBtn]}
-					args={{
-						disabled: isPending,
-					}}
-				>
-					В БОЙ!
-				</Button>
-			</div>
+			<DashboardModalButtons setIsShow={setIsShow} isPending={isPending} />
 		</Modal>
 	)
 }

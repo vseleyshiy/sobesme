@@ -1,5 +1,6 @@
 import { Authorization } from '@/auth/decorators/auth.decorator';
 import { Authorized } from '@/auth/decorators/authorized.decorator';
+import { FinishInterviewDto } from '@/interview/dto/finish-interview.dto';
 import {
   Body,
   Controller,
@@ -39,5 +40,12 @@ export class InterviewController {
     @Body() dto: StartInterviewDto,
   ) {
     return await this.interviewService.start(userId, interviewBalance, dto);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Authorization()
+  @Post('finish')
+  public async finish(@Body() dto: FinishInterviewDto) {
+    return await this.interviewService.finish(dto);
   }
 }

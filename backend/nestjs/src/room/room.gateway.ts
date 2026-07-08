@@ -100,6 +100,7 @@ export class RoomGateway implements OnGatewayConnection {
   async handleAudioEnd(@ConnectedSocket() client: IAuthenticatedSocket) {
     try {
       const interviewId = client.data.interviewId;
+
       await this.pythonService.sendAudioEndToPython(interviewId);
     } catch (error) {
       console.log('Ошибка внутри audio_end: ', error);
@@ -108,9 +109,11 @@ export class RoomGateway implements OnGatewayConnection {
 
   @OnEvent('ai.response.ready')
   handleAiResponseReady(payload: AiResponseReadyDto) {
-    const { interviewId, text, audioBuffer } = payload;
+    const { interviewId, text, impact, emotion, status, audioBuffer } = payload;
 
-    this.server.to(interviewId).emit('ai_response', { text, audioBuffer });
+    this.server
+      .to(interviewId)
+      .emit('ai_response', { text, impact, emotion, status, audioBuffer });
   }
 
   // EVENTLOOP CYCLE

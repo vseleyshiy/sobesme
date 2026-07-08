@@ -4,7 +4,7 @@
 	row-gap: 2px;
 
 	&Head {
-		font-size: 14px;
+		font-size: var(--font-text);
 
 		display: flex;
 		align-items: center;
@@ -16,7 +16,7 @@
 		}
 
 		.error {
-			font-size: 11px;
+			font-size: var(--font-errors);
 			color: var(--text-danger);
 		}
 	}

@@ -1,5 +1,5 @@
 import type { TypeInterviewStartSchema } from '@/components/dashboard/dashboard-modal/schemas/interview-start.schema'
-import type { IInterview } from '@/types/interview.type'
+import type { IInterview, IInterviewFinish } from '@/types/interview.type'
 
 import { axiosWithAuth } from '../api/interceptors'
 
@@ -23,6 +23,15 @@ class InterviewService {
 	async startInterview(data: TypeInterviewStartSchema) {
 		const response = await axiosWithAuth.post<IInterview>(
 			`${this.BASE_URL}/start`,
+			data,
+		)
+
+		return response.data
+	}
+
+	async finish(data: IInterviewFinish) {
+		const response = await axiosWithAuth.post<IInterview>(
+			`${this.BASE_URL}/finish`,
 			data,
 		)
 

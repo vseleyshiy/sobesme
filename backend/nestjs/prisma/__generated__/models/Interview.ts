@@ -8,6 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
+
+import type * as PJTG from '../pjtg';
 import type * as runtime from "@prisma/client/runtime/client"
 import type * as $Enums from "../enums.js"
 import type * as Prisma from "../internal/prismaNamespace.js"
@@ -27,21 +29,21 @@ export type AggregateInterview = {
 }
 
 export type InterviewAvgAggregateOutputType = {
-  score: number | null
+  hp: number | null
 }
 
 export type InterviewSumAggregateOutputType = {
-  score: number | null
+  hp: number | null
 }
 
 export type InterviewMinAggregateOutputType = {
   id: string | null
   userId: string | null
-  grade: $Enums.GradeEnum | null
   topic: string | null
+  grade: $Enums.GradeEnum | null
+  difficulty: $Enums.DifficultyEnum | null
   status: $Enums.StatusEnum | null
-  score: number | null
-  feedback: string | null
+  hp: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -49,11 +51,11 @@ export type InterviewMinAggregateOutputType = {
 export type InterviewMaxAggregateOutputType = {
   id: string | null
   userId: string | null
-  grade: $Enums.GradeEnum | null
   topic: string | null
+  grade: $Enums.GradeEnum | null
+  difficulty: $Enums.DifficultyEnum | null
   status: $Enums.StatusEnum | null
-  score: number | null
-  feedback: string | null
+  hp: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -61,10 +63,11 @@ export type InterviewMaxAggregateOutputType = {
 export type InterviewCountAggregateOutputType = {
   id: number
   userId: number
-  grade: number
   topic: number
+  grade: number
+  difficulty: number
   status: number
-  score: number
+  hp: number
   feedback: number
   createdAt: number
   updatedAt: number
@@ -73,21 +76,21 @@ export type InterviewCountAggregateOutputType = {
 
 
 export type InterviewAvgAggregateInputType = {
-  score?: true
+  hp?: true
 }
 
 export type InterviewSumAggregateInputType = {
-  score?: true
+  hp?: true
 }
 
 export type InterviewMinAggregateInputType = {
   id?: true
   userId?: true
-  grade?: true
   topic?: true
+  grade?: true
+  difficulty?: true
   status?: true
-  score?: true
-  feedback?: true
+  hp?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -95,11 +98,11 @@ export type InterviewMinAggregateInputType = {
 export type InterviewMaxAggregateInputType = {
   id?: true
   userId?: true
-  grade?: true
   topic?: true
+  grade?: true
+  difficulty?: true
   status?: true
-  score?: true
-  feedback?: true
+  hp?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -107,10 +110,11 @@ export type InterviewMaxAggregateInputType = {
 export type InterviewCountAggregateInputType = {
   id?: true
   userId?: true
-  grade?: true
   topic?: true
+  grade?: true
+  difficulty?: true
   status?: true
-  score?: true
+  hp?: true
   feedback?: true
   createdAt?: true
   updatedAt?: true
@@ -206,11 +210,12 @@ export type InterviewGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type InterviewGroupByOutputType = {
   id: string
   userId: string
-  grade: $Enums.GradeEnum
   topic: string
+  grade: $Enums.GradeEnum
+  difficulty: $Enums.DifficultyEnum
   status: $Enums.StatusEnum
-  score: number | null
-  feedback: string | null
+  hp: number
+  feedback:PrismaJson.IInterviewFeedback | null
   createdAt: Date
   updatedAt: Date
   _count: InterviewCountAggregateOutputType | null
@@ -241,11 +246,12 @@ export type InterviewWhereInput = {
   NOT?: Prisma.InterviewWhereInput | Prisma.InterviewWhereInput[]
   id?: Prisma.StringFilter<"Interview"> | string
   userId?: Prisma.StringFilter<"Interview"> | string
-  grade?: Prisma.EnumGradeEnumFilter<"Interview"> | $Enums.GradeEnum
   topic?: Prisma.StringFilter<"Interview"> | string
+  grade?: Prisma.EnumGradeEnumFilter<"Interview"> | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFilter<"Interview"> | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFilter<"Interview"> | $Enums.StatusEnum
-  score?: Prisma.FloatNullableFilter<"Interview"> | number | null
-  feedback?: Prisma.StringNullableFilter<"Interview"> | string | null
+  hp?: Prisma.IntFilter<"Interview"> | number
+  feedback?: Prisma.JsonNullableFilter<"Interview">
   createdAt?: Prisma.DateTimeFilter<"Interview"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Interview"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -255,10 +261,11 @@ export type InterviewWhereInput = {
 export type InterviewOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  grade?: Prisma.SortOrder
   topic?: Prisma.SortOrder
+  grade?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  score?: Prisma.SortOrderInput | Prisma.SortOrder
+  hp?: Prisma.SortOrder
   feedback?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -272,11 +279,12 @@ export type InterviewWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.InterviewWhereInput[]
   NOT?: Prisma.InterviewWhereInput | Prisma.InterviewWhereInput[]
   userId?: Prisma.StringFilter<"Interview"> | string
-  grade?: Prisma.EnumGradeEnumFilter<"Interview"> | $Enums.GradeEnum
   topic?: Prisma.StringFilter<"Interview"> | string
+  grade?: Prisma.EnumGradeEnumFilter<"Interview"> | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFilter<"Interview"> | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFilter<"Interview"> | $Enums.StatusEnum
-  score?: Prisma.FloatNullableFilter<"Interview"> | number | null
-  feedback?: Prisma.StringNullableFilter<"Interview"> | string | null
+  hp?: Prisma.IntFilter<"Interview"> | number
+  feedback?: Prisma.JsonNullableFilter<"Interview">
   createdAt?: Prisma.DateTimeFilter<"Interview"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Interview"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -286,10 +294,11 @@ export type InterviewWhereUniqueInput = Prisma.AtLeast<{
 export type InterviewOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  grade?: Prisma.SortOrder
   topic?: Prisma.SortOrder
+  grade?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  score?: Prisma.SortOrderInput | Prisma.SortOrder
+  hp?: Prisma.SortOrder
   feedback?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -306,22 +315,24 @@ export type InterviewScalarWhereWithAggregatesInput = {
   NOT?: Prisma.InterviewScalarWhereWithAggregatesInput | Prisma.InterviewScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Interview"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Interview"> | string
-  grade?: Prisma.EnumGradeEnumWithAggregatesFilter<"Interview"> | $Enums.GradeEnum
   topic?: Prisma.StringWithAggregatesFilter<"Interview"> | string
+  grade?: Prisma.EnumGradeEnumWithAggregatesFilter<"Interview"> | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumWithAggregatesFilter<"Interview"> | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumWithAggregatesFilter<"Interview"> | $Enums.StatusEnum
-  score?: Prisma.FloatNullableWithAggregatesFilter<"Interview"> | number | null
-  feedback?: Prisma.StringNullableWithAggregatesFilter<"Interview"> | string | null
+  hp?: Prisma.IntWithAggregatesFilter<"Interview"> | number
+  feedback?: Prisma.JsonNullableWithAggregatesFilter<"Interview">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Interview"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Interview"> | Date | string
 }
 
 export type InterviewCreateInput = {
   id?: string
-  grade: $Enums.GradeEnum
   topic: string
+  grade: $Enums.GradeEnum
+  difficulty: $Enums.DifficultyEnum
   status?: $Enums.StatusEnum
-  score?: number | null
-  feedback?: string | null
+  hp?: number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutInterviewsInput
@@ -331,11 +342,12 @@ export type InterviewCreateInput = {
 export type InterviewUncheckedCreateInput = {
   id?: string
   userId: string
-  grade: $Enums.GradeEnum
   topic: string
+  grade: $Enums.GradeEnum
+  difficulty: $Enums.DifficultyEnum
   status?: $Enums.StatusEnum
-  score?: number | null
-  feedback?: string | null
+  hp?: number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Date | string
   updatedAt?: Date | string
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutInterviewInput
@@ -343,11 +355,12 @@ export type InterviewUncheckedCreateInput = {
 
 export type InterviewUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
   topic?: Prisma.StringFieldUpdateOperationsInput | string
+  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFieldUpdateOperationsInput | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFieldUpdateOperationsInput | $Enums.StatusEnum
-  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hp?: Prisma.IntFieldUpdateOperationsInput | number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutInterviewsNestedInput
@@ -357,11 +370,12 @@ export type InterviewUpdateInput = {
 export type InterviewUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
   topic?: Prisma.StringFieldUpdateOperationsInput | string
+  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFieldUpdateOperationsInput | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFieldUpdateOperationsInput | $Enums.StatusEnum
-  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hp?: Prisma.IntFieldUpdateOperationsInput | number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MessageUncheckedUpdateManyWithoutInterviewNestedInput
@@ -370,22 +384,24 @@ export type InterviewUncheckedUpdateInput = {
 export type InterviewCreateManyInput = {
   id?: string
   userId: string
-  grade: $Enums.GradeEnum
   topic: string
+  grade: $Enums.GradeEnum
+  difficulty: $Enums.DifficultyEnum
   status?: $Enums.StatusEnum
-  score?: number | null
-  feedback?: string | null
+  hp?: number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type InterviewUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
   topic?: Prisma.StringFieldUpdateOperationsInput | string
+  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFieldUpdateOperationsInput | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFieldUpdateOperationsInput | $Enums.StatusEnum
-  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hp?: Prisma.IntFieldUpdateOperationsInput | number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -393,11 +409,12 @@ export type InterviewUpdateManyMutationInput = {
 export type InterviewUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
   topic?: Prisma.StringFieldUpdateOperationsInput | string
+  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFieldUpdateOperationsInput | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFieldUpdateOperationsInput | $Enums.StatusEnum
-  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hp?: Prisma.IntFieldUpdateOperationsInput | number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -405,27 +422,28 @@ export type InterviewUncheckedUpdateManyInput = {
 export type InterviewCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  grade?: Prisma.SortOrder
   topic?: Prisma.SortOrder
+  grade?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  score?: Prisma.SortOrder
+  hp?: Prisma.SortOrder
   feedback?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type InterviewAvgOrderByAggregateInput = {
-  score?: Prisma.SortOrder
+  hp?: Prisma.SortOrder
 }
 
 export type InterviewMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  grade?: Prisma.SortOrder
   topic?: Prisma.SortOrder
+  grade?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  score?: Prisma.SortOrder
-  feedback?: Prisma.SortOrder
+  hp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -433,17 +451,17 @@ export type InterviewMaxOrderByAggregateInput = {
 export type InterviewMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  grade?: Prisma.SortOrder
   topic?: Prisma.SortOrder
+  grade?: Prisma.SortOrder
+  difficulty?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  score?: Prisma.SortOrder
-  feedback?: Prisma.SortOrder
+  hp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type InterviewSumOrderByAggregateInput = {
-  score?: Prisma.SortOrder
+  hp?: Prisma.SortOrder
 }
 
 export type InterviewScalarRelationFilter = {
@@ -465,16 +483,12 @@ export type EnumGradeEnumFieldUpdateOperationsInput = {
   set?: $Enums.GradeEnum
 }
 
-export type EnumStatusEnumFieldUpdateOperationsInput = {
-  set?: $Enums.StatusEnum
+export type EnumDifficultyEnumFieldUpdateOperationsInput = {
+  set?: $Enums.DifficultyEnum
 }
 
-export type NullableFloatFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type EnumStatusEnumFieldUpdateOperationsInput = {
+  set?: $Enums.StatusEnum
 }
 
 export type InterviewCreateNestedOneWithoutMessagesInput = {
@@ -535,11 +549,12 @@ export type InterviewUncheckedUpdateManyWithoutUserNestedInput = {
 
 export type InterviewCreateWithoutMessagesInput = {
   id?: string
-  grade: $Enums.GradeEnum
   topic: string
+  grade: $Enums.GradeEnum
+  difficulty: $Enums.DifficultyEnum
   status?: $Enums.StatusEnum
-  score?: number | null
-  feedback?: string | null
+  hp?: number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutInterviewsInput
@@ -548,11 +563,12 @@ export type InterviewCreateWithoutMessagesInput = {
 export type InterviewUncheckedCreateWithoutMessagesInput = {
   id?: string
   userId: string
-  grade: $Enums.GradeEnum
   topic: string
+  grade: $Enums.GradeEnum
+  difficulty: $Enums.DifficultyEnum
   status?: $Enums.StatusEnum
-  score?: number | null
-  feedback?: string | null
+  hp?: number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -575,11 +591,12 @@ export type InterviewUpdateToOneWithWhereWithoutMessagesInput = {
 
 export type InterviewUpdateWithoutMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
   topic?: Prisma.StringFieldUpdateOperationsInput | string
+  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFieldUpdateOperationsInput | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFieldUpdateOperationsInput | $Enums.StatusEnum
-  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hp?: Prisma.IntFieldUpdateOperationsInput | number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutInterviewsNestedInput
@@ -588,22 +605,24 @@ export type InterviewUpdateWithoutMessagesInput = {
 export type InterviewUncheckedUpdateWithoutMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
   topic?: Prisma.StringFieldUpdateOperationsInput | string
+  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFieldUpdateOperationsInput | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFieldUpdateOperationsInput | $Enums.StatusEnum
-  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hp?: Prisma.IntFieldUpdateOperationsInput | number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type InterviewCreateWithoutUserInput = {
   id?: string
-  grade: $Enums.GradeEnum
   topic: string
+  grade: $Enums.GradeEnum
+  difficulty: $Enums.DifficultyEnum
   status?: $Enums.StatusEnum
-  score?: number | null
-  feedback?: string | null
+  hp?: number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Date | string
   updatedAt?: Date | string
   messages?: Prisma.MessageCreateNestedManyWithoutInterviewInput
@@ -611,11 +630,12 @@ export type InterviewCreateWithoutUserInput = {
 
 export type InterviewUncheckedCreateWithoutUserInput = {
   id?: string
-  grade: $Enums.GradeEnum
   topic: string
+  grade: $Enums.GradeEnum
+  difficulty: $Enums.DifficultyEnum
   status?: $Enums.StatusEnum
-  score?: number | null
-  feedback?: string | null
+  hp?: number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Date | string
   updatedAt?: Date | string
   messages?: Prisma.MessageUncheckedCreateNestedManyWithoutInterviewInput
@@ -653,33 +673,36 @@ export type InterviewScalarWhereInput = {
   NOT?: Prisma.InterviewScalarWhereInput | Prisma.InterviewScalarWhereInput[]
   id?: Prisma.StringFilter<"Interview"> | string
   userId?: Prisma.StringFilter<"Interview"> | string
-  grade?: Prisma.EnumGradeEnumFilter<"Interview"> | $Enums.GradeEnum
   topic?: Prisma.StringFilter<"Interview"> | string
+  grade?: Prisma.EnumGradeEnumFilter<"Interview"> | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFilter<"Interview"> | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFilter<"Interview"> | $Enums.StatusEnum
-  score?: Prisma.FloatNullableFilter<"Interview"> | number | null
-  feedback?: Prisma.StringNullableFilter<"Interview"> | string | null
+  hp?: Prisma.IntFilter<"Interview"> | number
+  feedback?: Prisma.JsonNullableFilter<"Interview">
   createdAt?: Prisma.DateTimeFilter<"Interview"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Interview"> | Date | string
 }
 
 export type InterviewCreateManyUserInput = {
   id?: string
-  grade: $Enums.GradeEnum
   topic: string
+  grade: $Enums.GradeEnum
+  difficulty: $Enums.DifficultyEnum
   status?: $Enums.StatusEnum
-  score?: number | null
-  feedback?: string | null
+  hp?: number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type InterviewUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
   topic?: Prisma.StringFieldUpdateOperationsInput | string
+  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFieldUpdateOperationsInput | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFieldUpdateOperationsInput | $Enums.StatusEnum
-  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hp?: Prisma.IntFieldUpdateOperationsInput | number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MessageUpdateManyWithoutInterviewNestedInput
@@ -687,11 +710,12 @@ export type InterviewUpdateWithoutUserInput = {
 
 export type InterviewUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
   topic?: Prisma.StringFieldUpdateOperationsInput | string
+  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFieldUpdateOperationsInput | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFieldUpdateOperationsInput | $Enums.StatusEnum
-  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hp?: Prisma.IntFieldUpdateOperationsInput | number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MessageUncheckedUpdateManyWithoutInterviewNestedInput
@@ -699,11 +723,12 @@ export type InterviewUncheckedUpdateWithoutUserInput = {
 
 export type InterviewUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
   topic?: Prisma.StringFieldUpdateOperationsInput | string
+  grade?: Prisma.EnumGradeEnumFieldUpdateOperationsInput | $Enums.GradeEnum
+  difficulty?: Prisma.EnumDifficultyEnumFieldUpdateOperationsInput | $Enums.DifficultyEnum
   status?: Prisma.EnumStatusEnumFieldUpdateOperationsInput | $Enums.StatusEnum
-  score?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  feedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hp?: Prisma.IntFieldUpdateOperationsInput | number
+  feedback?:PrismaJson.IInterviewFeedback | Prisma.NullableJsonNullValueInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -742,10 +767,11 @@ export type InterviewCountOutputTypeCountMessagesArgs<ExtArgs extends runtime.Ty
 export type InterviewSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  grade?: boolean
   topic?: boolean
+  grade?: boolean
+  difficulty?: boolean
   status?: boolean
-  score?: boolean
+  hp?: boolean
   feedback?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -757,10 +783,11 @@ export type InterviewSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type InterviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  grade?: boolean
   topic?: boolean
+  grade?: boolean
+  difficulty?: boolean
   status?: boolean
-  score?: boolean
+  hp?: boolean
   feedback?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -770,10 +797,11 @@ export type InterviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type InterviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  grade?: boolean
   topic?: boolean
+  grade?: boolean
+  difficulty?: boolean
   status?: boolean
-  score?: boolean
+  hp?: boolean
   feedback?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -783,16 +811,17 @@ export type InterviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type InterviewSelectScalar = {
   id?: boolean
   userId?: boolean
-  grade?: boolean
   topic?: boolean
+  grade?: boolean
+  difficulty?: boolean
   status?: boolean
-  score?: boolean
+  hp?: boolean
   feedback?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type InterviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "grade" | "topic" | "status" | "score" | "feedback" | "createdAt" | "updatedAt", ExtArgs["result"]["interview"]>
+export type InterviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "topic" | "grade" | "difficulty" | "status" | "hp" | "feedback" | "createdAt" | "updatedAt", ExtArgs["result"]["interview"]>
 export type InterviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.Interview$messagesArgs<ExtArgs>
@@ -814,11 +843,15 @@ export type $InterviewPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
-    grade: $Enums.GradeEnum
     topic: string
+    grade: $Enums.GradeEnum
+    difficulty: $Enums.DifficultyEnum
     status: $Enums.StatusEnum
-    score: number | null
-    feedback: string | null
+    hp: number
+    /**
+     * [IInterviewFeedback]
+     */
+    feedback:PrismaJson.IInterviewFeedback | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["interview"]>
@@ -1248,11 +1281,12 @@ export interface Prisma__InterviewClient<T, Null = never, ExtArgs extends runtim
 export interface InterviewFieldRefs {
   readonly id: Prisma.FieldRef<"Interview", 'String'>
   readonly userId: Prisma.FieldRef<"Interview", 'String'>
-  readonly grade: Prisma.FieldRef<"Interview", 'GradeEnum'>
   readonly topic: Prisma.FieldRef<"Interview", 'String'>
+  readonly grade: Prisma.FieldRef<"Interview", 'GradeEnum'>
+  readonly difficulty: Prisma.FieldRef<"Interview", 'DifficultyEnum'>
   readonly status: Prisma.FieldRef<"Interview", 'StatusEnum'>
-  readonly score: Prisma.FieldRef<"Interview", 'Float'>
-  readonly feedback: Prisma.FieldRef<"Interview", 'String'>
+  readonly hp: Prisma.FieldRef<"Interview", 'Int'>
+  readonly feedback: Prisma.FieldRef<"Interview", 'Json'>
   readonly createdAt: Prisma.FieldRef<"Interview", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Interview", 'DateTime'>
 }

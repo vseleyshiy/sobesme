@@ -1,0 +1,39 @@
+.user {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 5px;
+	align-items: center;
+	background-color: var(--bg-main);
+	border-radius: 10px;
+
+	.avatar {
+		height: 300px;
+		width: 300px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 10px solid var(--accent-blue-normal);
+		transition: box-shadow 0.3s ease-in-out;
+
+		&.active {
+			box-shadow: 0px 0px 50px var(--accent-blue-normal);
+		}
+
+		img {
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+			object-position: center center;
+			border-radius: 50%;
+		}
+	}
+
+	.status {
+		color: var(--accent-blue-normal);
+		text-align: center;
+		font-size: var(--font-large);
+		font-weight: bold;
+	}
+}

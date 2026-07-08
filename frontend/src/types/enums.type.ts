@@ -13,8 +13,8 @@ export const METHOD = {
 export type TypeMethod = (typeof METHOD)[keyof typeof METHOD]
 
 export const MESSAGE_ROLES = {
-	USER: 'USER',
-	AI: 'AI',
+	USER: 'user',
+	ASSISTANT: 'assistant',
 } as const
 
 export type TypeMessageRoles =
@@ -36,3 +36,22 @@ export const INTERVIEW_STATUS = {
 
 export type TypeInterviewStatus =
 	(typeof INTERVIEW_STATUS)[keyof typeof INTERVIEW_STATUS]
+
+export const DIFFICULTY = {
+	PUPPY: 'PUPPY',
+	STRICT: 'STRICT',
+	HARD: 'HARD',
+} as const
+
+export type TypeDifficulty = (typeof DIFFICULTY)[keyof typeof DIFFICULTY]
+
+export const EMOTIONS = {
+	COOL: 'COOL',
+	NEUTRAL: 'NEUTRAL',
+	SMIRK: 'SMIRK',
+	FACEPALM: 'FACEPALM',
+	ANGRY: 'ANGRY',
+	FURIOUS: 'FURIOUS',
+} as const
+
+export type TypeEmotions = (typeof EMOTIONS)[keyof typeof EMOTIONS]

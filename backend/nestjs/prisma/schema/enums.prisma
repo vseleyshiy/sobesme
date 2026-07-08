@@ -12,6 +12,14 @@ enum GradeEnum {
   @@map("enum_grade")
 }
 
+enum DifficultyEnum {
+  PUPPY
+  STRICT
+  HARD
+
+  @@map("difficulty_enum")
+}
+
 enum AuthMethodEnum {
   CREDENTIALS
   YANDEX
@@ -28,6 +36,15 @@ enum StatusEnum {
 }
 
 enum MessageRoleEnum {
-  USER
-  AI
+  user
+  assistant
+}
+
+enum EmotionsEnum {
+  COOL
+  NEUTRAL
+  SMIRK
+  FACEPALM
+  ANGRY
+  FURIOUS
 }

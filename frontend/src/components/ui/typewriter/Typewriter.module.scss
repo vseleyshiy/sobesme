@@ -1,0 +1,24 @@
+.container {
+	font-family: 'monospace';
+	font-size: var(--font-subtitle);
+	white-space: pre-wrap;
+	.cursor {
+		margin-left: 2px;
+		display: inline-block;
+		animation: blink 0.8s step-end infinite;
+	}
+}
+
+@keyframes blink {
+	from {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}

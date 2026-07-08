@@ -1,28 +1,36 @@
 from pydantic import BaseModel
-from schemas.enums import GradeEnum
+from schemas.enums import GradeEnum, DifficultyEnum, EmotionsEnum, MessageRoleEnum, AiInteresStatus
 
 class Message(BaseModel):
-  role: str
+  role: MessageRoleEnum
   content: str
 
 class InterviewRequest(BaseModel):
-  interviewId: str
   messages: list[Message]
   grade: GradeEnum
   topic: str
+  difficulty: DifficultyEnum
+  hp: int
+
+class QuestionResponse(BaseModel):
+  text: str
+  emotion: EmotionsEnum
+  impact: int
+  status: AiInteresStatus
 
 class TtsRequest(BaseModel):
   text: str
 
 class MentorDetail(BaseModel):
   topic: str
-  user_answer: str
+  userAnswer: str
   correction: str
-  study_link: str
+  searchQuery: str
 
 class MentorFeedback(BaseModel):
   score: int
-  feedback: str
+  stressScore: int
+  text: str
   details: list[MentorDetail]
 
 class AudioChunk(BaseModel):

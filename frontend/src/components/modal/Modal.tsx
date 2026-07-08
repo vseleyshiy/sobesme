@@ -1,3 +1,5 @@
+import { AnimatePresence, motion } from 'motion/react'
+
 import type { IModalProps } from '@/components/modal/modal.type'
 
 import styles from './Modal.module.scss'
@@ -6,17 +8,24 @@ export function Modal(props: IModalProps) {
 	const { cardStyles, ref, children, isShow, onSubmit } = props
 
 	return (
-		isShow && (
-			<div className={styles.modal}>
-				<form
-					style={cardStyles}
-					ref={ref}
-					className={styles.card}
-					onSubmit={onSubmit}
+		<AnimatePresence>
+			{isShow && (
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					className={styles.modal}
 				>
-					{children}
-				</form>
-			</div>
-		)
+					<form
+						style={cardStyles}
+						ref={ref}
+						className={styles.card}
+						onSubmit={onSubmit}
+					>
+						{children}
+					</form>
+				</motion.div>
+			)}
+		</AnimatePresence>
 	)
 }

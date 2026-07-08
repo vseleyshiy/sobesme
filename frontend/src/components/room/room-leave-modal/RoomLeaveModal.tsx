@@ -1,10 +1,14 @@
+import { useFinishInterview } from '@/components/final/hooks/useFinishInterview'
 import { Modal } from '@/components/modal/Modal'
 import styles from '@/components/modal/Modal.module.scss'
 import type { IRoomLeaveModalProps } from '@/components/room/room-leave-modal/room-leave-modal.type'
 import { Button } from '@/components/ui/button'
+import { Loader } from '@/components/ui/loader'
 
 export function RoomLeaveModal(props: IRoomLeaveModalProps) {
 	const { isShow, setIsShow, ref } = props
+
+	const { isPending, mutate } = useFinishInterview()
 
 	return (
 		<Modal
@@ -24,18 +28,36 @@ export function RoomLeaveModal(props: IRoomLeaveModalProps) {
 						получение работы в этой компании...
 					</div>
 				</div>
-				<div className={styles.details}></div>
 			</div>
-			<div className={styles.buttons}>
-				<Button
-					args={{
-						onClick: () => setIsShow(false),
-					}}
-				>
-					закрыть
-				</Button>
-				<Button classNames={[styles.mainBtn]}>завершить звонок</Button>
-			</div>
+			{isPending ? (
+				<Loader />
+			) : (
+				<div className={styles.buttons}>
+					<Button
+						args={{
+							disabled: isPending,
+							onClick: e => {
+								e.preventDefault()
+								setIsShow(false)
+							},
+						}}
+					>
+						закрыть
+					</Button>
+					<Button
+						classNames={[styles.mainBtn]}
+						args={{
+							disabled: isPending,
+							onClick: e => {
+								e.preventDefault()
+								mutate()
+							},
+						}}
+					>
+						завершить звонок
+					</Button>
+				</div>
+			)}
 		</Modal>
 	)
 }

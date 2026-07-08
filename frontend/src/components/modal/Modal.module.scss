@@ -15,7 +15,7 @@
 		background-color: var(--bg-secondary);
 		max-width: 600px;
 		width: 100%;
-		height: 300px;
+		min-height: 300px;
 		border-radius: 10px;
 		border: 1px solid var(--border-color);
 		display: flex;
@@ -26,7 +26,7 @@
 		.info {
 			display: flex;
 			flex-direction: column;
-			row-gap: 20px;
+			row-gap: 10px;
 			.header {
 				display: flex;
 				flex-direction: column;
@@ -37,11 +37,11 @@
 					column-gap: 10px;
 
 					font-weight: bold;
-					font-size: 20px;
+					font-size: var(--font-title);
 
 					.subtitle {
 						font-weight: normal;
-						font-size: 18px;
+						font-size: var(--font-subtitle);
 					}
 				}
 				.description {
@@ -67,10 +67,16 @@
 				display: flex;
 				flex-direction: column;
 				align-items: start;
-				row-gap: 5px;
+				row-gap: 10px;
 
 				.input {
 					width: 100%;
+				}
+
+				.selects {
+					display: flex;
+					align-items: center;
+					column-gap: 10px;
 				}
 			}
 		}

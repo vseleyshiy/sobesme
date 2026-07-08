@@ -1,0 +1,20 @@
+.tools {
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: var(--accent-blue-light);
+	padding: 10px;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+	.button {
+		display: flex;
+		justify-content: center;
+		padding: 10px;
+		border: none;
+		align-items: center;
+		border-radius: 50%;
+	}
+}

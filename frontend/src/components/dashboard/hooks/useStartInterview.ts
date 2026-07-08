@@ -8,7 +8,6 @@ import type { TypeInterviewStartSchema } from '@/components/dashboard/dashboard-
 import { PAGES_CONFIG } from '@/configs/pages-url.config'
 import { queryClient } from '@/configs/tanstack-query-client.config'
 import { interviewService } from '@/services/interview.service'
-import { socket } from '@/socket'
 import type { IAuthError } from '@/types/auth.type'
 import type { IInterview } from '@/types/interview.type'
 import { toastMessageHandler } from '@/utils/toast-message-handler.util'
@@ -31,7 +30,6 @@ export function useStartInterview() {
 				queryClient.invalidateQueries({ queryKey: ['interviews'] }),
 			])
 			navigate(PAGES_CONFIG.ROOM + `/${data.id}`)
-			socket.connect()
 		},
 		onError(error) {
 			toastMessageHandler(error.response.data.message)

@@ -1,8 +1,17 @@
 import { Authorization } from '@/auth/decorators/auth.decorator';
-import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
+import { CreateMessageDto } from '@/message/dto/create-message.dto';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { MessageService } from './message.service';
 
-@Controller('message')
+@Controller('messages')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
@@ -18,5 +27,12 @@ export class MessageController {
   @Authorization()
   async findById(@Param('id') id: string) {
     return await this.messageService.findById(id);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post()
+  @Authorization()
+  async create(@Body() dto: CreateMessageDto) {
+    return await this.messageService.create(dto);
   }
 }

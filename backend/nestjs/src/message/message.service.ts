@@ -23,13 +23,14 @@ export class MessageService {
   }
 
   public async create(dto: CreateMessageDto) {
-    const { interviewId, content, role } = dto;
+    const { interviewId, content, role, currentHp } = dto;
 
     const message = await this.prismaService.message.create({
       data: {
         interviewId,
         role,
         content,
+        currentHp,
       },
     });
 

@@ -27,6 +27,15 @@ export const GradeEnum = {
 export type GradeEnum = (typeof GradeEnum)[keyof typeof GradeEnum]
 
 
+export const DifficultyEnum = {
+  PUPPY: 'PUPPY',
+  STRICT: 'STRICT',
+  HARD: 'HARD'
+} as const
+
+export type DifficultyEnum = (typeof DifficultyEnum)[keyof typeof DifficultyEnum]
+
+
 export const AuthMethodEnum = {
   CREDENTIALS: 'CREDENTIALS',
   YANDEX: 'YANDEX'
@@ -52,8 +61,20 @@ export type StatusEnum = (typeof StatusEnum)[keyof typeof StatusEnum]
 
 
 export const MessageRoleEnum = {
-  USER: 'USER',
-  AI: 'AI'
+  user: 'user',
+  assistant: 'assistant'
 } as const
 
 export type MessageRoleEnum = (typeof MessageRoleEnum)[keyof typeof MessageRoleEnum]
+
+
+export const EmotionsEnum = {
+  COOL: 'COOL',
+  NEUTRAL: 'NEUTRAL',
+  SMIRK: 'SMIRK',
+  FACEPALM: 'FACEPALM',
+  ANGRY: 'ANGRY',
+  FURIOUS: 'FURIOUS'
+} as const
+
+export type EmotionsEnum = (typeof EmotionsEnum)[keyof typeof EmotionsEnum]

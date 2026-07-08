@@ -1,0 +1,40 @@
+.message {
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+
+	&.ai {
+		align-items: start;
+	}
+
+	.wrap {
+		display: flex;
+		flex-direction: column;
+		background-color: var(--accent-blue-light-hover);
+		padding: 20px;
+		border-radius: 10px;
+
+		.role {
+			font-size: var(--font-text);
+			font-weight: bold;
+			display: flex;
+			align-items: center;
+			column-gap: 5px;
+			.hp {
+				color: var(--accent-blue-medium);
+				display: flex;
+				align-items: center;
+				column-gap: 2px;
+
+				svg {
+					height: 15px;
+					width: 15px;
+					fill: var(--accent-red);
+					stroke: var(--accent-blue-medium);
+				}
+			}
+		}
+		.content {
+		}
+	}
+}

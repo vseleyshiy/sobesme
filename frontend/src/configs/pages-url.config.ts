@@ -3,6 +3,7 @@ class PAGES {
 
 	public DASHBOARD = this.BASE_URL + '/dashboard'
 	public ROOM = this.BASE_URL + '/room'
+	public FINAL = this.BASE_URL + '/final'
 
 	public LOGIN = this.BASE_URL + '/login'
 	public REGISTER = this.BASE_URL + '/register'

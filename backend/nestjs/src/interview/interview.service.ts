@@ -1,5 +1,7 @@
+import { FinishInterviewDto } from '@/interview/dto/finish-interview.dto';
 import { PrismaService } from '@/prisma/prisma.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { StatusEnum } from 'prisma/__generated__/enums';
 import { CreateInterviewDto } from './dto/create-interview.dto';
 import { StartInterviewDto } from './dto/start-interview.dto';
 
@@ -30,12 +32,13 @@ export class InterviewService {
   }
 
   public async create(userId: string, dto: CreateInterviewDto) {
-    const { grade, topic } = dto;
+    const { grade, difficulty, topic } = dto;
 
     const interview = await this.prismaService.interview.create({
       data: {
         userId,
         grade,
+        difficulty,
         topic,
       },
     });
@@ -54,10 +57,11 @@ export class InterviewService {
         HttpStatus.PAYMENT_REQUIRED,
       );
 
-    const { grade, topic } = dto;
+    const { grade, topic, difficulty } = dto;
 
     const interview = await this.create(userId, {
       grade,
+      difficulty,
       topic,
     });
 
@@ -75,7 +79,34 @@ export class InterviewService {
     return interview;
   }
 
-  // public async finish();
+  public async changeHp(interviewId: string, impact: number) {
+    const interview = await this.prismaService.interview.update({
+      where: {
+        id: interviewId,
+      },
+      data: {
+        hp: {
+          increment: impact,
+        },
+      },
+    });
 
-  // public async results()
+    return interview.hp;
+  }
+
+  public async finish(dto: FinishInterviewDto) {
+    const { interviewId, feedback } = dto;
+
+    const interview = await this.prismaService.interview.update({
+      where: {
+        id: interviewId,
+      },
+      data: {
+        status: StatusEnum.COMPLETED,
+        feedback,
+      },
+    });
+
+    return interview;
+  }
 }

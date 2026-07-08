@@ -1,3 +1,4 @@
+export * from './(logged-in)/FinalPage'
 export * from './(logged-in)/InterviewPage'
 export * from './(logged-in)/RoomPage'
 export * from './LoginPage'

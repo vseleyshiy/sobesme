@@ -1,14 +1,14 @@
 from services.audio_service import AudioService
 from services.llm_service import LlmService
 from schemas.schemas import InterviewRequest, AudioChunk, Message
-from constants.constants import AUDIO_DIR_PATH, ALLOWED_ORIGIN
 from utils.prompts import getQuestionInstruction
 from utils.functions import removeTempFile, getError
 from main import sio
 import os
 import aiofiles
-import traceback
+from dotenv import load_dotenv
 
+load_dotenv()
 
 audioService = AudioService()
 llmService = LlmService()
@@ -35,13 +35,16 @@ async def handle_end(sid, rawData):
         return
 
     interviewId = data.interviewId
+    messages = data.messages
     grade = data.grade
     topic = data.topic
-    messages = data.messages
+    difficulty = data.difficulty
+    hp = data.hp
 
     if interviewId not in audioBuffers or not audioBuffers[interviewId]:
         return getError('В audioBuffers не найдено свойство с ключом interviewId', 'Not found interviewId', 404)
 
+    AUDIO_DIR_PATH = os.getenv('AUDIO_DIR_PATH')
 
     tempTtsPath = f"{AUDIO_DIR_PATH}/{interviewId}_ai.mp3"
     tempAudioPath = f"{AUDIO_DIR_PATH}/{interviewId}_user.webm"
@@ -51,6 +54,10 @@ async def handle_end(sid, rawData):
         del audioBuffers[interviewId]
 
         if len(audioData) < 100:
+            await sio.emit('ai_response', {
+            'interviewId': interviewId,
+            'aiText': 'Я вас не расслышал, повторите ещё раз...',
+            }, to=sid)
             return getError('Размер аудио файла слишком мал', 'Audio file is too small', 400)
 
         if not os.path.exists(AUDIO_DIR_PATH):
@@ -63,15 +70,24 @@ async def handle_end(sid, rawData):
         userText = await audioService.transcribe(tempAudioPath)
 
         if not userText.strip():
+            await sio.emit('ai_response', {
+            'interviewId': interviewId,
+            'aiText': 'Что вы молчите? Я жду вашего ответа...',
+            }, to=sid)
             return getError('Пользователь ничего не сказал в микрофон', 'Audio text is empty', 400)
 
         messages.append(Message(role='user', content=userText))
 
-        systemArray = [Message(role="system", content=getQuestionInstruction(grade, topic))]
+        systemArray = [Message(role="system", content=getQuestionInstruction(grade, topic, difficulty))]
 
-        responseText = await llmService.getQuestion(messages, systemArray)
+        response = await llmService.getQuestion(messages, systemArray)
 
-        await audioService.getTts(responseText, tempTtsPath)
+        text = response.text
+        emotion = response.emotion
+        impact = response.impact
+        status = response.status
+
+        await audioService.getTts(text, tempTtsPath)
 
         async with aiofiles.open(tempTtsPath, 'rb') as f:
             aiAudioBytes = await f.read()
@@ -79,7 +95,10 @@ async def handle_end(sid, rawData):
         await sio.emit('ai_response', {
             'interviewId': interviewId,
             'userText': userText,
-            'aiText': responseText,
+            'aiText': text,
+            'emotion': emotion,
+            'impact': impact,
+            'status': status,
             'audioBuffer': aiAudioBytes,
         }, to=sid)
 

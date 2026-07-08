@@ -3,7 +3,7 @@ import type { SubmitHandler } from 'react-hook-form'
 
 export interface IModalProps<T = unknown> extends PropsWithChildren {
 	cardStyles?: CSSProperties
-	ref: RefObject<HTMLFormElement>
+	ref?: RefObject<HTMLFormElement>
 	isShow: boolean
 	onSubmit?: SubmitHandler<T>
 }

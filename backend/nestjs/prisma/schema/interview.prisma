@@ -1,12 +1,14 @@
 model Interview {
-  id       String     @id @default(uuid())
-  user     User       @relation(fields: [userId], references: [id])
-  userId   String     @map("user_id")
-  grade    GradeEnum
-  topic    String
-  status   StatusEnum @default(IN_PROGRESS)
-  score    Float?
-  feedback String?
+  id         String         @id @default(uuid())
+  user       User           @relation(fields: [userId], references: [id])
+  userId     String         @map("user_id")
+  topic      String
+  grade      GradeEnum
+  difficulty DifficultyEnum
+  status     StatusEnum     @default(IN_PROGRESS)
+  hp         Int            @default(100)
+  /// [IInterviewFeedback]
+  feedback   Json?
 
   messages Message[]
 

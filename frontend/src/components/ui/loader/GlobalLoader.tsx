@@ -6,12 +6,7 @@ export function GlobalLoader() {
 	return (
 		<div className={styles.global}>
 			<div className={styles.content}>
-				<Logo
-					style={{
-						height: 70,
-						width: 70,
-					}}
-				/>
+				<Logo />
 				<div className={styles.title}>Загрузка страницы...</div>
 			</div>
 		</div>

@@ -1,4 +1,10 @@
-import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { MessageRoleEnum } from 'prisma/__generated__/enums';
 
 export class CreateMessageDto {
@@ -13,4 +19,8 @@ export class CreateMessageDto {
   @IsString()
   @IsNotEmpty()
   content: string;
+
+  @IsInt()
+  @IsOptional()
+  currentHp?: number;
 }

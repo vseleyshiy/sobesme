@@ -5,5 +5,6 @@ export interface IMessage {
 	interviewId: string
 	role: TypeMessageRoles
 	content: string
+	currentHp: number
 	createdAt: Date
 }

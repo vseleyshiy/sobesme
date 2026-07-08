@@ -1,90 +1,60 @@
-import { useCallback, useState } from 'react'
+import { useEffect } from 'react'
 
-import cn from 'clsx'
-import { useAtomValue } from 'jotai'
-import { Mic, MicOff, Phone } from 'lucide-react'
+import { useAtomValue, useSetAtom } from 'jotai'
 
 import { useGetInterview } from '@/components/room/hooks/useGetInterview'
+import { useMediaAudio } from '@/components/room/hooks/useMediaAudio'
+import { RoomAi } from '@/components/room/room-ai/RoomAi'
+import { RoomHead } from '@/components/room/room-head/RoomHead'
 import { RoomLeaveModal } from '@/components/room/room-leave-modal/RoomLeaveModal'
-import { Button } from '@/components/ui/button'
+import { RoomNotice } from '@/components/room/room-notice/RoomNotice'
+import { RoomTools } from '@/components/room/room-tools/RoomTools'
+import { RoomUser } from '@/components/room/room-user/RoomUser'
 import { GlobalLoader } from '@/components/ui/loader'
 import { useOutside } from '@/hooks/useOutside'
-import { aiTextResponseAtom } from '@/stores/room.store'
+import { currentHpAtom, isAnimationAppearancedAtom } from '@/stores/room.store'
 
 import styles from './Room.module.scss'
 
 export function Room() {
-	// const { isRecording, startRecording, stopRecording } = useMediaAudio()
+	const isAnimationAppearanced = useAtomValue(isAnimationAppearancedAtom)
+
+	const setCurrentHp = useSetAtom(currentHpAtom)
+
+	const { isRecording, onMicro } = useMediaAudio()
 
 	const { interview, isLoading } = useGetInterview()
 
-	const aiTextResponse = useAtomValue(aiTextResponseAtom)
+	useEffect(() => {
+		if (isLoading || !interview) return
 
-	const [isRecording, setIsRecording] = useState(false)
+		setCurrentHp(interview.hp)
+	}, [isLoading, interview, setCurrentHp])
 
 	const { isShow, setIsShow, ref } = useOutside<HTMLFormElement>(false)
-
-	const onMicro = useCallback(() => {
-		setIsRecording(prev => !prev)
-	}, [])
-
-	const leaveCall = useCallback(() => {
-		setIsShow(true)
-	}, [setIsShow])
 
 	return isLoading ? (
 		<GlobalLoader />
 	) : (
 		<>
 			<RoomLeaveModal isShow={isShow} setIsShow={setIsShow} ref={ref} />
+			<RoomNotice />
 			<div className={styles.room}>
-				<div className={styles.title}>
-					{interview.topic.slice(0, 40) +
-						(interview.topic.length > 40 && '...')}
+				<RoomHead topic={interview.topic} />
+				<div
+					className={styles.main}
+					style={{
+						justifyContent: isAnimationAppearanced ? 'space-between' : 'center',
+					}}
+				>
+					<RoomAi />
+					<RoomUser isRecording={isRecording} />
 				</div>
-				{aiTextResponse ? (
-					<div className={styles.response}>{aiTextResponse}</div>
-				) : (
-					<div className={styles.main}>
-						<div
-							className={cn(styles.avatar, {
-								[styles.active]: isRecording,
-							})}
-						>
-							<img src='/onizuka/womanizer.jpeg' alt='avatar' />
-						</div>
-						<div className={styles.status}>
-							{isRecording ? 'говорите' : 'вас не слышно'}
-						</div>
-					</div>
-				)}
-				<div className={styles.tools}>
-					<Button
-						style={{
-							backgroundColor: isRecording && 'var(--accent-blue-normal)',
-						}}
-						classNames={[styles.button]}
-						args={{
-							onClick: onMicro,
-							// 	onTouchStart: startRecording,
-							// onTouchEnd: stopRecording,
-						}}
-					>
-						{isRecording ? <Mic /> : <MicOff />}
-					</Button>
-					<Button
-						classNames={[styles.button]}
-						args={{
-							onClick: leaveCall,
-						}}
-						style={{
-							backgroundColor: 'var(--accent-red)',
-							color: 'var(--bg-main)',
-						}}
-					>
-						<Phone />
-					</Button>
-				</div>
+				<RoomTools
+					setIsShow={setIsShow}
+					isRecording={isRecording}
+					onMicro={onMicro}
+				/>
 			</div>
 		</>
 	)

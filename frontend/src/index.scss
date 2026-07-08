@@ -8,7 +8,7 @@
 	// --accent-blue-medium: #0066ff;
 	// --accent-blue-medium-hover: #0052cc;
 	--accent-blue-medium: #1f79ff;
-	--accent-blue-medium-hover: #2079ff;
+	--accent-blue-medium-hover: #0066ff;
 	--accent-blue-normal: #6ea8ff;
 	--accent-blue-normal-hover: #669def;
 	--accent-blue-light: #e3eeff;
@@ -19,6 +19,12 @@
 	--text-success: #37d237;
 	--text-proccess: #ecb44b;
 	--font-main: 'Rubik', sans-serif;
+
+	--font-errors: 11px;
+	--font-text: 14px;
+	--font-subtitle: 18px;
+	--font-title: 25px;
+	--font-large: 30px;
 }
 
 * {
@@ -68,6 +74,7 @@ img {
 
 .container {
 	max-width: 1400px;
+	width: 100%;
 	margin: 0 auto;
 	padding: 0 20px;
 }

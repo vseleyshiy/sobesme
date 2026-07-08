@@ -8,6 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
+
+import type * as PJTG from '../pjtg';
 import type * as runtime from "@prisma/client/runtime/client"
 import type * as $Enums from "../enums.js"
 import type * as Prisma from "../internal/prismaNamespace.js"
@@ -20,8 +22,18 @@ export type MessageModel = runtime.Types.Result.DefaultSelection<Prisma.$Message
 
 export type AggregateMessage = {
   _count: MessageCountAggregateOutputType | null
+  _avg: MessageAvgAggregateOutputType | null
+  _sum: MessageSumAggregateOutputType | null
   _min: MessageMinAggregateOutputType | null
   _max: MessageMaxAggregateOutputType | null
+}
+
+export type MessageAvgAggregateOutputType = {
+  currentHp: number | null
+}
+
+export type MessageSumAggregateOutputType = {
+  currentHp: number | null
 }
 
 export type MessageMinAggregateOutputType = {
@@ -29,6 +41,7 @@ export type MessageMinAggregateOutputType = {
   interviewId: string | null
   role: $Enums.MessageRoleEnum | null
   content: string | null
+  currentHp: number | null
   createdAt: Date | null
 }
 
@@ -37,6 +50,7 @@ export type MessageMaxAggregateOutputType = {
   interviewId: string | null
   role: $Enums.MessageRoleEnum | null
   content: string | null
+  currentHp: number | null
   createdAt: Date | null
 }
 
@@ -45,16 +59,26 @@ export type MessageCountAggregateOutputType = {
   interviewId: number
   role: number
   content: number
+  currentHp: number
   createdAt: number
   _all: number
 }
 
+
+export type MessageAvgAggregateInputType = {
+  currentHp?: true
+}
+
+export type MessageSumAggregateInputType = {
+  currentHp?: true
+}
 
 export type MessageMinAggregateInputType = {
   id?: true
   interviewId?: true
   role?: true
   content?: true
+  currentHp?: true
   createdAt?: true
 }
 
@@ -63,6 +87,7 @@ export type MessageMaxAggregateInputType = {
   interviewId?: true
   role?: true
   content?: true
+  currentHp?: true
   createdAt?: true
 }
 
@@ -71,6 +96,7 @@ export type MessageCountAggregateInputType = {
   interviewId?: true
   role?: true
   content?: true
+  currentHp?: true
   createdAt?: true
   _all?: true
 }
@@ -113,6 +139,18 @@ export type MessageAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: MessageAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: MessageSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: MessageMinAggregateInputType
@@ -143,6 +181,8 @@ export type MessageGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   _count?: MessageCountAggregateInputType | true
+  _avg?: MessageAvgAggregateInputType
+  _sum?: MessageSumAggregateInputType
   _min?: MessageMinAggregateInputType
   _max?: MessageMaxAggregateInputType
 }
@@ -152,8 +192,11 @@ export type MessageGroupByOutputType = {
   interviewId: string
   role: $Enums.MessageRoleEnum
   content: string
+  currentHp: number | null
   createdAt: Date
   _count: MessageCountAggregateOutputType | null
+  _avg: MessageAvgAggregateOutputType | null
+  _sum: MessageSumAggregateOutputType | null
   _min: MessageMinAggregateOutputType | null
   _max: MessageMaxAggregateOutputType | null
 }
@@ -181,6 +224,7 @@ export type MessageWhereInput = {
   interviewId?: Prisma.StringFilter<"Message"> | string
   role?: Prisma.EnumMessageRoleEnumFilter<"Message"> | $Enums.MessageRoleEnum
   content?: Prisma.StringFilter<"Message"> | string
+  currentHp?: Prisma.IntNullableFilter<"Message"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
   interview?: Prisma.XOR<Prisma.InterviewScalarRelationFilter, Prisma.InterviewWhereInput>
 }
@@ -190,6 +234,7 @@ export type MessageOrderByWithRelationInput = {
   interviewId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  currentHp?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   interview?: Prisma.InterviewOrderByWithRelationInput
 }
@@ -202,6 +247,7 @@ export type MessageWhereUniqueInput = Prisma.AtLeast<{
   interviewId?: Prisma.StringFilter<"Message"> | string
   role?: Prisma.EnumMessageRoleEnumFilter<"Message"> | $Enums.MessageRoleEnum
   content?: Prisma.StringFilter<"Message"> | string
+  currentHp?: Prisma.IntNullableFilter<"Message"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
   interview?: Prisma.XOR<Prisma.InterviewScalarRelationFilter, Prisma.InterviewWhereInput>
 }, "id">
@@ -211,10 +257,13 @@ export type MessageOrderByWithAggregationInput = {
   interviewId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  currentHp?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.MessageCountOrderByAggregateInput
+  _avg?: Prisma.MessageAvgOrderByAggregateInput
   _max?: Prisma.MessageMaxOrderByAggregateInput
   _min?: Prisma.MessageMinOrderByAggregateInput
+  _sum?: Prisma.MessageSumOrderByAggregateInput
 }
 
 export type MessageScalarWhereWithAggregatesInput = {
@@ -225,6 +274,7 @@ export type MessageScalarWhereWithAggregatesInput = {
   interviewId?: Prisma.StringWithAggregatesFilter<"Message"> | string
   role?: Prisma.EnumMessageRoleEnumWithAggregatesFilter<"Message"> | $Enums.MessageRoleEnum
   content?: Prisma.StringWithAggregatesFilter<"Message"> | string
+  currentHp?: Prisma.IntNullableWithAggregatesFilter<"Message"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Message"> | Date | string
 }
 
@@ -232,6 +282,7 @@ export type MessageCreateInput = {
   id?: string
   role: $Enums.MessageRoleEnum
   content: string
+  currentHp?: number | null
   createdAt?: Date | string
   interview: Prisma.InterviewCreateNestedOneWithoutMessagesInput
 }
@@ -241,6 +292,7 @@ export type MessageUncheckedCreateInput = {
   interviewId: string
   role: $Enums.MessageRoleEnum
   content: string
+  currentHp?: number | null
   createdAt?: Date | string
 }
 
@@ -248,6 +300,7 @@ export type MessageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  currentHp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   interview?: Prisma.InterviewUpdateOneRequiredWithoutMessagesNestedInput
 }
@@ -257,6 +310,7 @@ export type MessageUncheckedUpdateInput = {
   interviewId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  currentHp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -265,6 +319,7 @@ export type MessageCreateManyInput = {
   interviewId: string
   role: $Enums.MessageRoleEnum
   content: string
+  currentHp?: number | null
   createdAt?: Date | string
 }
 
@@ -272,6 +327,7 @@ export type MessageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  currentHp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -280,6 +336,7 @@ export type MessageUncheckedUpdateManyInput = {
   interviewId?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  currentHp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -298,7 +355,12 @@ export type MessageCountOrderByAggregateInput = {
   interviewId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  currentHp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type MessageAvgOrderByAggregateInput = {
+  currentHp?: Prisma.SortOrder
 }
 
 export type MessageMaxOrderByAggregateInput = {
@@ -306,6 +368,7 @@ export type MessageMaxOrderByAggregateInput = {
   interviewId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  currentHp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -314,7 +377,12 @@ export type MessageMinOrderByAggregateInput = {
   interviewId?: Prisma.SortOrder
   role?: Prisma.SortOrder
   content?: Prisma.SortOrder
+  currentHp?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type MessageSumOrderByAggregateInput = {
+  currentHp?: Prisma.SortOrder
 }
 
 export type MessageCreateNestedManyWithoutInterviewInput = {
@@ -363,10 +431,19 @@ export type EnumMessageRoleEnumFieldUpdateOperationsInput = {
   set?: $Enums.MessageRoleEnum
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type MessageCreateWithoutInterviewInput = {
   id?: string
   role: $Enums.MessageRoleEnum
   content: string
+  currentHp?: number | null
   createdAt?: Date | string
 }
 
@@ -374,6 +451,7 @@ export type MessageUncheckedCreateWithoutInterviewInput = {
   id?: string
   role: $Enums.MessageRoleEnum
   content: string
+  currentHp?: number | null
   createdAt?: Date | string
 }
 
@@ -411,6 +489,7 @@ export type MessageScalarWhereInput = {
   interviewId?: Prisma.StringFilter<"Message"> | string
   role?: Prisma.EnumMessageRoleEnumFilter<"Message"> | $Enums.MessageRoleEnum
   content?: Prisma.StringFilter<"Message"> | string
+  currentHp?: Prisma.IntNullableFilter<"Message"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Message"> | Date | string
 }
 
@@ -418,6 +497,7 @@ export type MessageCreateManyInterviewInput = {
   id?: string
   role: $Enums.MessageRoleEnum
   content: string
+  currentHp?: number | null
   createdAt?: Date | string
 }
 
@@ -425,6 +505,7 @@ export type MessageUpdateWithoutInterviewInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  currentHp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -432,6 +513,7 @@ export type MessageUncheckedUpdateWithoutInterviewInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  currentHp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -439,6 +521,7 @@ export type MessageUncheckedUpdateManyWithoutInterviewInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumMessageRoleEnumFieldUpdateOperationsInput | $Enums.MessageRoleEnum
   content?: Prisma.StringFieldUpdateOperationsInput | string
+  currentHp?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -449,6 +532,7 @@ export type MessageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   interviewId?: boolean
   role?: boolean
   content?: boolean
+  currentHp?: boolean
   createdAt?: boolean
   interview?: boolean | Prisma.InterviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
@@ -458,6 +542,7 @@ export type MessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   interviewId?: boolean
   role?: boolean
   content?: boolean
+  currentHp?: boolean
   createdAt?: boolean
   interview?: boolean | Prisma.InterviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
@@ -467,6 +552,7 @@ export type MessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   interviewId?: boolean
   role?: boolean
   content?: boolean
+  currentHp?: boolean
   createdAt?: boolean
   interview?: boolean | Prisma.InterviewDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["message"]>
@@ -476,10 +562,11 @@ export type MessageSelectScalar = {
   interviewId?: boolean
   role?: boolean
   content?: boolean
+  currentHp?: boolean
   createdAt?: boolean
 }
 
-export type MessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "interviewId" | "role" | "content" | "createdAt", ExtArgs["result"]["message"]>
+export type MessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "interviewId" | "role" | "content" | "currentHp" | "createdAt", ExtArgs["result"]["message"]>
 export type MessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   interview?: boolean | Prisma.InterviewDefaultArgs<ExtArgs>
 }
@@ -500,6 +587,7 @@ export type $MessagePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     interviewId: string
     role: $Enums.MessageRoleEnum
     content: string
+    currentHp: number | null
     createdAt: Date
   }, ExtArgs["result"]["message"]>
   composites: {}
@@ -929,6 +1017,7 @@ export interface MessageFieldRefs {
   readonly interviewId: Prisma.FieldRef<"Message", 'String'>
   readonly role: Prisma.FieldRef<"Message", 'MessageRoleEnum'>
   readonly content: Prisma.FieldRef<"Message", 'String'>
+  readonly currentHp: Prisma.FieldRef<"Message", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Message", 'DateTime'>
 }
     
