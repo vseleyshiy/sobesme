@@ -1,3 +1,4 @@
+import { DashboardChart } from '@/components/dashboard/dashboard-chart/DashboardChart'
 import { DashboardList } from '@/components/dashboard/dashboard-list/DashboardList'
 import { DashboardModal } from '@/components/dashboard/dashboard-modal/DashboardModal'
 import { GlobalLoader } from '@/components/ui/loader'
@@ -17,22 +18,25 @@ export function Dashboard() {
 	) : (
 		<>
 			<div className='container'>
-				<div className={styles.content}>
-					<div className={styles.balance}>
-						<div className={styles.title}>
-							<span className={styles.text}>в данный момент у вас</span>
-							<span className={styles.count}>{user.interviewsBalance}</span>
-							<span className={styles.text}>интервью</span>
+				<div className={styles.wrap}>
+					<div className={styles.content}>
+						<div className={styles.balance}>
+							<div className={styles.title}>
+								<span className={styles.text}>в данный момент у вас</span>
+								<span className={styles.count}>{user.interviewsBalance}</span>
+								<span className={styles.text}>интервью</span>
+							</div>
+							<Button
+								args={{
+									onClick: () => setIsShow(true),
+								}}
+							>
+								настроить собеседование
+							</Button>
 						</div>
-						<Button
-							args={{
-								onClick: () => setIsShow(true),
-							}}
-						>
-							настроить собеседование
-						</Button>
+						<DashboardList />
 					</div>
-					<DashboardList />
+					<DashboardChart />
 				</div>
 			</div>
 			<DashboardModal isShow={isShow} setIsShow={setIsShow} ref={ref} />

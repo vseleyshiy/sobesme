@@ -1,0 +1,11 @@
+.chart {
+	width: 100%;
+	padding: 10px 20px;
+	background-color: var(--bg-secondary);
+	border-radius: 10px;
+	border: 1px solid var(--border-color);
+
+	.title {
+		font-size: var(--font-title);
+	}
+}

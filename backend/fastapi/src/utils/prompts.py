@@ -60,7 +60,7 @@ def getAnalyzeInstruction(grade: GradeEnum, topic: str, hp: int, difficulty: Dif
       "topic": "<Краткая суть заданного вопроса>",
       "userAnswer": "<Краткая выжимка того, что ответил кандидат (или 'Не ответил')>",
       "correction": "<Твой комментарий Ментора. Объясни, где была ошибка и как звучит правильный ответ>",
-      "searchQuery": "<Строка. Точный поисковый запрос, чтобы найти решение, например 'MDN Event Loop' или 'React beta docs useEffect'>"
+      "searchQuery": "<Строка. Точный поисковый запрос, чтобы найти решение, например 'MDN Event Loop' или 'React beta docs useEffect' или 'Tanstack Query Tutorial youtube'>"
     }}
   ]
 }}

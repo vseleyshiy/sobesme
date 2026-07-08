@@ -19,72 +19,6 @@
 		align-items: start;
 		justify-content: space-between;
 
-		.status {
-			text-transform: uppercase;
-			font-size: var(--font-large);
-			font-weight: bold;
-			color: var(--accent-blue-medium);
-			padding-bottom: 1px;
-			border-bottom: 3px solid var(--accent-blue-light);
-		}
-		.content {
-			width: 100%;
-			display: flex;
-			align-items: start;
-			justify-content: space-between;
-
-			.col {
-				display: flex;
-				flex-direction: column;
-				row-gap: 15px;
-				width: 40%;
-
-				&.statistic {
-					width: 60%;
-					align-items: center;
-				}
-
-				.title {
-					font-size: var(--font-title);
-					font-weight: bold;
-					text-transform: uppercase;
-					display: flex;
-					flex-direction: column;
-					row-gap: 5px;
-
-					.details {
-						display: flex;
-						flex-direction: column;
-						.detail {
-							display: flex;
-							align-items: center;
-							column-gap: 5px;
-							span {
-								font-weight: normal;
-							}
-							font-size: var(--font-subtitle);
-							color: var(--text-muted);
-						}
-					}
-				}
-
-				.stars {
-					display: flex;
-					align-items: center;
-					column-gap: 5px;
-					margin-bottom: 25px;
-				}
-
-				.hp {
-					width: 100%;
-					&Title {
-						color: var(--text-muted);
-						font-size: var(--font-text);
-					}
-				}
-			}
-		}
-
 		.line {
 			height: 3px;
 			width: 100%;
@@ -93,6 +27,9 @@
 
 		.section {
 			width: 100%;
+			display: flex;
+			flex-direction: column;
+			row-gap: 10px;
 			.title {
 				font-size: var(--font-title);
 				font-weight: bold;
@@ -101,20 +38,53 @@
 				flex-direction: column;
 				row-gap: 5px;
 			}
+			.description {
+				color: var(--text-muted);
+			}
 			.list {
 				display: flex;
 				flex-direction: column;
-				row-gap: 10px;
+				row-gap: 15px;
 				background-color: var(--accent-blue-light);
 				padding: 20px;
 				border-radius: 10px;
-			}
-		}
 
-		.share {
-			text-transform: uppercase;
-			font-size: var(--font-large);
-			padding: 10px 20px;
+				.item {
+					display: flex;
+					flex-direction: column;
+					row-gap: 10px;
+					padding: 10px;
+					border-radius: 10px;
+					border: 1px solid var(--accent-blue-normal);
+					.topic {
+						font-weight: bold;
+						font-size: var(--font-subtitle);
+					}
+					.info {
+						color: var(--text-muted);
+						display: flex;
+						flex-direction: column;
+						align-items: start;
+
+						&Start {
+							text-transform: uppercase;
+							font-size: var(--font-text);
+							font-weight: bold;
+						}
+
+						&End {
+							color: var(--text-main);
+
+							&.copy {
+								cursor: pointer;
+								padding: 5px;
+								background-color: var(--bg-secondary);
+								font-family: monospace;
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

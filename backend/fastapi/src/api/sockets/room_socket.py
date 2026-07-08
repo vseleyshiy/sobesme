@@ -1,6 +1,6 @@
 from services.audio_service import AudioService
 from services.llm_service import LlmService
-from schemas.schemas import InterviewRequest, AudioChunk, Message
+from schemas.schemas import InterviewRequest, AudioChunk, Message, HandleDisconnect
 from utils.prompts import getQuestionInstruction
 from utils.functions import removeTempFile, getError
 from main import sio
@@ -39,7 +39,6 @@ async def handle_end(sid, rawData):
     grade = data.grade
     topic = data.topic
     difficulty = data.difficulty
-    hp = data.hp
 
     if interviewId not in audioBuffers or not audioBuffers[interviewId]:
         return getError('В audioBuffers не найдено свойство с ключом interviewId', 'Not found interviewId', 404)
@@ -80,7 +79,7 @@ async def handle_end(sid, rawData):
 
         systemArray = [Message(role="system", content=getQuestionInstruction(grade, topic, difficulty))]
 
-        response = await llmService.getQuestion(messages, systemArray)
+        response = await llmService.getAiResponse(messages, systemArray)
 
         text = response.text
         emotion = response.emotion
@@ -107,3 +106,15 @@ async def handle_end(sid, rawData):
     finally:
         for path in [tempAudioPath, tempTtsPath]:
             removeTempFile(path)
+
+
+@sio.on('disconnect')
+async def handleDisconnect(_, rawData):
+    try:
+        data = HandleDisconnect(**rawData)
+    except Exception as e:
+        print(f"Ошибка валидации: {e}")
+        return
+
+    interviewId = data.interviewId
+    del audioBuffers[interviewId]

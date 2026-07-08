@@ -49,7 +49,6 @@ export function useMediaAudio() {
 			mediaRecorder.ondataavailable = e => {
 				if (e.data && e.data.size > 0) {
 					socket.emit('audio_chunk', e.data)
-					console.log('CHUNK!')
 				}
 			}
 
@@ -83,11 +82,9 @@ export function useMediaAudio() {
 
 		silenceTimeoutRef.current = setTimeout(() => {
 			socket.emit('audio_end')
-			console.log('AUDIO_END')
 			silenceTimeoutRef.current = null
 
 			store.set(aiTextResponseAtom, '')
-
 			if (!isAnimationAppearancedRef.current) {
 				isAnimationAppearancedRef.current = true
 				store.set(isAnimationAppearancedAtom, true)

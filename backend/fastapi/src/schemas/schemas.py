@@ -6,6 +6,13 @@ class Message(BaseModel):
   content: str
 
 class InterviewRequest(BaseModel):
+  interviewId: str
+  messages: list[Message]
+  grade: GradeEnum
+  topic: str
+  difficulty: DifficultyEnum
+
+class AnalyzeInterviewRequest(BaseModel):
   messages: list[Message]
   grade: GradeEnum
   topic: str
@@ -36,3 +43,6 @@ class MentorFeedback(BaseModel):
 class AudioChunk(BaseModel):
   interviewId: str
   chunk: bytes
+
+class HandleDisconnect(BaseModel):
+  interviewId: str

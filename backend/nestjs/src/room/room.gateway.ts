@@ -8,6 +8,7 @@ import {
   ConnectedSocket,
   MessageBody,
   OnGatewayConnection,
+  OnGatewayDisconnect,
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
@@ -27,7 +28,7 @@ import { ISessionCookieParsed } from './types/session-cookie-parsed.type';
   },
   namespace: '/room',
 })
-export class RoomGateway implements OnGatewayConnection {
+export class RoomGateway implements OnGatewayConnection, OnGatewayDisconnect {
   public constructor(
     private readonly roomService: RoomService,
     private readonly redisService: RedisService,
@@ -86,6 +87,12 @@ export class RoomGateway implements OnGatewayConnection {
     }
   }
 
+  handleDisconnect(@ConnectedSocket() client: IAuthenticatedSocket) {
+    const interviewId = client.data.interviewId;
+
+    this.pythonService.handleDisconnect(interviewId);
+  }
+
   @SubscribeMessage('audio_chunk')
   handleAudioChunk(
     @ConnectedSocket() client: IAuthenticatedSocket,
@@ -115,10 +122,4 @@ export class RoomGateway implements OnGatewayConnection {
       .to(interviewId)
       .emit('ai_response', { text, impact, emotion, status, audioBuffer });
   }
-
-  // EVENTLOOP CYCLE
-  // пользователь заходит на сайт, по url /room/:id (interview id)
-  // на реакт происходит socket.connect() с помощью socket.io-client
-  // и вот тут websocketgateway проверяет вот эту всю чепуху:
-  // JWT токен, валидирует, что у юзера есть доступ к этому собесу, и добавляет его в "комнату" (socket.join).
 }

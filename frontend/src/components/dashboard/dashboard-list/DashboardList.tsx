@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react'
 import { DashboardListModal } from '@/components/dashboard/dashboard-list/dashboard-list-modal/DashboardListModal'
 import { useInterviews } from '@/components/dashboard/hooks/useInterviews'
 import { Interview } from '@/components/dashboard/interview/Interview'
+import { EmptyError } from '@/components/ui/empty-error'
 import { Loader } from '@/components/ui/loader'
 import { useOutside } from '@/hooks/useOutside'
 import type { IInterview } from '@/types/interview.type'
@@ -35,10 +36,15 @@ export function DashboardList() {
 				setIsShow={setIsShow}
 			/>
 			<div className={styles.content}>
-				<h2 className={styles.title}>история ваших собеседований:</h2>
+				<h2 className={styles.title}>история ваших собеседований</h2>
 				<ul className={styles.list}>
 					{isLoading ? (
 						<Loader />
+					) : interviews.length === 0 ? (
+						<EmptyError
+							title='пока что тут пусто'
+							description='вы ещё ни разу не собеседовались'
+						/>
 					) : (
 						interviews.map(interview => (
 							<Interview

@@ -29,7 +29,7 @@ export function useFinishInterview() {
 					queryKey: ['interview', interviewId],
 				}),
 			])
-			navigate(PAGES_CONFIG.FINAL + `/${interviewId}`)
+			navigate(PAGES_CONFIG.DASHBOARD)
 		},
 		onError(error) {
 			toastMessageHandler(error.response.data.message)

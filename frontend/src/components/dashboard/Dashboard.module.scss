@@ -1,35 +1,40 @@
-.content {
-	width: 100%;
-	margin-top: 20px;
-	color: var(--text-main);
+.wrap {
 	display: flex;
-	align-items: start;
-	gap: 20px;
-
-	.balance {
-		width: 30%;
-		padding: 10px 20px;
-		border-radius: 10px;
-		border: 1px solid var(--border-color);
-		display: inline-block;
-		background-color: var(--bg-secondary);
+	flex-direction: column;
+	row-gap: 20px;
+	.content {
+		width: 100%;
+		margin-top: 20px;
+		color: var(--text-main);
 		display: flex;
-		flex-direction: column;
-		row-gap: 10px;
-		.title {
+		align-items: start;
+		gap: 20px;
+
+		.balance {
+			width: 30%;
+			padding: 10px 20px;
+			border-radius: 10px;
+			border: 1px solid var(--border-color);
+			display: inline-block;
+			background-color: var(--bg-secondary);
 			display: flex;
 			flex-direction: column;
-			align-items: center;
-			.text {
-				font-size: var(--font-large);
+			row-gap: 10px;
+			.title {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				.text {
+					font-size: var(--font-large);
+				}
+				.count {
+					color: var(--accent-blue-medium-hover);
+					font-size: var(--font-large);
+				}
 			}
-			.count {
-				color: var(--accent-blue-medium-hover);
-				font-size: var(--font-large);
+			button {
+				width: 100%;
 			}
-		}
-		button {
-			width: 100%;
 		}
 	}
 }

@@ -9,7 +9,7 @@ class LlmService:
     def __init__(self):
         self.client = AsyncOpenAI()
 
-    async def getQuestion(self, messages: list[Message], systemArray: list[Message]) -> QuestionResponse:
+    async def getAiResponse(self, messages: list[Message], systemArray: list[Message]) -> QuestionResponse:
         systemArrayDump = [message.model_dump() for message in systemArray]
         historyArray = [message.model_dump() for message in messages]
 

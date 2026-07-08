@@ -23,7 +23,7 @@ export function DashboardListModal(props: IDashboardListModal) {
 						<div className={styles.description}>
 							{interview.feedback?.text
 								? interview.feedback.text
-								: 'к сожалению, вы по собсвенной инициативе сами принудительно завершили собеседование, поэтому мне вам нечего сказать...'}
+								: 'к сожалению, вы по собственной инициативе сами принудительно завершили собеседование, поэтому мне вам нечего сказать...'}
 						</div>
 					</div>
 					<div className={styles.details}>
@@ -55,10 +55,11 @@ export function DashboardListModal(props: IDashboardListModal) {
 								onClick: e => {
 									e.preventDefault()
 									navigate(PAGES_CONFIG.FINAL + `/${interview.id}`)
+									setIsShow(false)
 								},
 							}}
 						>
-							Полный результат
+							полный результат
 						</Button>
 					) : null}
 				</div>

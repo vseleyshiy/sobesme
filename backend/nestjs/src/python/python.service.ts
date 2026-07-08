@@ -61,10 +61,6 @@ export class PythonService implements OnModuleInit {
         impact,
       );
 
-      if (status === 'COMPLETED' || currentHp <= 0) {
-        await this.analyzeInterview({ interviewId });
-      }
-
       await this.prismaService.$transaction([
         this.prismaService.message.create({
           data: {
@@ -82,6 +78,10 @@ export class PythonService implements OnModuleInit {
           },
         }),
       ]);
+
+      if (status === 'COMPLETED' || currentHp <= 0) {
+        await this.analyzeInterview({ interviewId });
+      }
     }
 
     this.eventEmmiter.emit('ai.response.ready', {
@@ -97,14 +97,13 @@ export class PythonService implements OnModuleInit {
   public async sendAudioEndToPython(interviewId: string) {
     const interview = await this.interviewService.findById(interviewId);
 
-    if (!interview) throw Error('Интервью с таким interviewId не найдено');
-
-    const { grade, topic, difficulty, hp } = interview;
-
     const messages =
       await this.messageService.findManyByInterviewId(interviewId);
 
-    if (!messages) throw Error('Сообщения с таким interviewId не найдены');
+    if (!interview || !messages)
+      throw Error('Интервью или сообщения с таким interviewId не найдено');
+
+    const { grade, topic, difficulty } = interview;
 
     this.pythonSocket.emit('audio_end', {
       interviewId,
@@ -112,7 +111,6 @@ export class PythonService implements OnModuleInit {
       grade,
       topic,
       difficulty,
-      hp,
     });
   }
 
@@ -152,5 +150,11 @@ export class PythonService implements OnModuleInit {
     });
 
     return updatedInterview;
+  }
+
+  public handleDisconnect(interviewId: string) {
+    this.pythonSocket.emit('disconnect', {
+      interviewId,
+    });
   }
 }

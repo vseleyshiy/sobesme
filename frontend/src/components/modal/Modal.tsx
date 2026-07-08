@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { AnimatePresence, motion } from 'motion/react'
 
 import type { IModalProps } from '@/components/modal/modal.type'
@@ -6,6 +8,14 @@ import styles from './Modal.module.scss'
 
 export function Modal(props: IModalProps) {
 	const { cardStyles, ref, children, isShow, onSubmit } = props
+
+	useEffect(() => {
+		if (isShow) {
+			document.body.classList.add('no-scroll')
+		} else {
+			document.body.classList.remove('no-scroll')
+		}
+	}, [isShow])
 
 	return (
 		<AnimatePresence>

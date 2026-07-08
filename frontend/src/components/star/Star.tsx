@@ -20,7 +20,7 @@ export function Star(props: IStarProps) {
 				className={styles.starFilledContainer}
 				initial={{ width: '0%' }}
 				animate={{ width: `${fillPercentage * 100}%` }}
-				transition={{ duration: 0.6, delay, ease: 'easeInOut' }}
+				transition={{ duration: 2, delay, ease: 'easeInOut' }}
 			>
 				<StarIcon
 					className={styles.lucideIcon}

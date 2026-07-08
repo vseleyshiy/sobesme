@@ -41,6 +41,8 @@ export const SocketComponent = (props: PropsWithChildren) => {
 		function aiResponse(data: IAiResponse) {
 			const { text, emotion, impact, status, audioBuffer } = data
 
+			store.set(aiTextResponseAtom, text)
+
 			if (!audioBuffer || !emotion || !impact || !status) return
 
 			const currentHp = store.get(currentHpAtom)
@@ -51,7 +53,6 @@ export const SocketComponent = (props: PropsWithChildren) => {
 				return
 			}
 
-			store.set(aiTextResponseAtom, text)
 			store.set(currentHpAtom, prev => prev + impact)
 			store.set(seniorAvatarAtom, randomAvatarUrl(emotion))
 
